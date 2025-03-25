@@ -1,5 +1,21 @@
 <?php
+require_once '..\Backend\DatabaseContext\Database.php';
+
+
+// Database connection
+$connection = new mysqli("localhost", "your_username", "your_password", "your_database");
+
+// Check for connection errors
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
+}
+
+
+
+
+
 // Let's just say the operating user is:
+
 
 $myUserID = 111;
 
@@ -18,7 +34,7 @@ if(isset($_GET["partnerName"])) {
         // Also check if a chat between the operating and the requested user exists, if yes get the chat ID
         // RESULT: id, user_name, chat_id (will be NULL if no chat exists)
 
-        $res = $mysqli->query("SELECT usr.id, usr.user_name,
+        $res = $connection->query("SELECT usr.id, usr.user_name,
         (SELECT cht.id FROM userchat cht WHERE cht.chat_owner = $myUserID AND cht.chat_partner = usr.id) AS chat_id
         FROM useraccount usr WHERE usr.user_name = '$partnerName' AND usr.id != $myUserID LIMIT 1;");
 
@@ -53,3 +69,21 @@ if(isset($_GET["partnerName"])) {
     }
 
 }
+
+
+// Chat of user A with user B
+$connection->query("INSERT INTO userchat (chat_owner, chat_partner, last_action, created_at) VALUES
+(111, 222, UNIX_TIMESTAMP(), UNIX_TIMESTAMP());");
+
+$myChatID = intval($connection->insert_id);
+
+// Chat of user B with user A
+$connection->query("INSERT INTO userchat (chat_owner, chat_partner, last_action, created_at) VALUES
+(222, 111, UNIX_TIMESTAMP(), UNIX_TIMESTAMP());");
+
+$partnerChatID = intval($connection->insert_id);
+
+
+$connection->query("INSERT INTO userchat_msg (chat_id, msg_owner, sender, recipient, msg_date, msg_status, msg_text) VALUES
+($myChatID, 111, 111, 222, UNIX_TIMESTAMP(), 1, 'Hello there'),
+($partnerChatID, 222, 111, 222, UNIX_TIMESTAMP(), 0, 'Hello there');");
