@@ -1,89 +1,87 @@
 <?php
-require_once '..\Backend\DatabaseContext\Database.php';
-
+require_once '../Backend/DatabaseContext/Database.php';
 
 // Database connection
-$connection = new mysqli("localhost", "your_username", "your_password", "your_database");
+$connection = new mysqli("localhost", "root", "", "Volkstuinen"); // Update database name
 
-// Check for connection errors
+// Check connection
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-
-
-
-
-// Let's just say the operating user is:
-
-
+// Operating user
 $myUserID = 111;
-
-// Indicates if the requested user exists, if not show the mailbox page.
 $openChat = FALSE;
 
-if(isset($_GET["partnerName"])) {
-
-    // Validate user name
+if (isset($_GET["partnerName"])) {
+    // Validate user input
     $partnerName = trim($_GET["partnerName"]);
 
-    if(preg_match('/^[A-Za-z\d]{3,64}$/' , $partnerName))
-    {
-        // User name valid, get info from database:
-        // Check if username really exists and get the user ID and the name from database
-        // Also check if a chat between the operating and the requested user exists, if yes get the chat ID
-        // RESULT: id, user_name, chat_id (will be NULL if no chat exists)
+    if (preg_match('/^[A-Za-z\d]{3,64}$/', $partnerName)) {
+        // Use prepared statement to prevent SQL injection
+        $stmt = $connection->prepare("SELECT usr.id, usr.user_name,
+            (SELECT cht.id FROM userchat cht WHERE cht.chat_owner = ? AND cht.chat_partner = usr.id) AS chat_id
+            FROM useraccount usr WHERE usr.user_name = ? AND usr.id != ? LIMIT 1");
+        $stmt->bind_param("isi", $myUserID, $partnerName, $myUserID);
+        $stmt->execute();
+        $res = $stmt->get_result();
 
-        $res = $connection->query("SELECT usr.id, usr.user_name,
-        (SELECT cht.id FROM userchat cht WHERE cht.chat_owner = $myUserID AND cht.chat_partner = usr.id) AS chat_id
-        FROM useraccount usr WHERE usr.user_name = '$partnerName' AND usr.id != $myUserID LIMIT 1;");
-
-        if($res->num_rows === 1) {
-
+        if ($res->num_rows === 1) {
             $row = $res->fetch_assoc();
 
-            // User name of chat partner will be visible in the chat, don't use the $_GET value
+            // Store retrieved values
             $partnerName = $row["user_name"];
             $partnerUserID = intval($row["id"]);
-
-            // Will be int (0) if no chat exists, yet
             $myChatID = intval($row["chat_id"]);
             $openChat = TRUE;
-
-            // If $openChat is TRUE, you can use these 3 variables: $partnerName, $partnerUserID, $myChatID (can be 0)
-
-        }
-        else {
-
-            // Requested user name is valid but not existant!
+        } else {
             $errorFeedback = phpFeedback("error", "User name not found!");
-
         }
 
-    }
-    else {
-
-        // else: invalid user name requested, you can redirect to 404 page here for example.
+        $stmt->close();
+    } else {
         $errorFeedback = phpFeedback("error", "User name does not exist!");
+    }
+}
 
+// Ensure a chat exists before inserting messages
+if ($openChat) {
+    if ($myChatID === 0) {
+        // Create chat for both users
+        $stmt = $connection->prepare("INSERT INTO userchat (chat_owner, chat_partner, last_action, created_at) VALUES (?, ?, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())");
+        $stmt->bind_param("ii", $myUserID, $partnerUserID);
+        $stmt->execute();
+        $myChatID = $stmt->insert_id;
+        $stmt->close();
+
+        $stmt = $connection->prepare("INSERT INTO userchat (chat_owner, chat_partner, last_action, created_at) VALUES (?, ?, UNIX_TIMESTAMP(), UNIX_TIMESTAMP())");
+        $stmt->bind_param("ii", $partnerUserID, $myUserID);
+        $stmt->execute();
+        $partnerChatID = $stmt->insert_id;
+        $stmt->close();
     }
 
+    // Insert messages
+    $stmt = $connection->prepare("INSERT INTO userchat_msg (chat_id, msg_owner, sender, recipient, msg_date, msg_status, msg_text) VALUES 
+        (?, ?, ?, ?, UNIX_TIMESTAMP(), ?, ?), 
+        (?, ?, ?, ?, UNIX_TIMESTAMP(), ?, ?)");
+    $msg = "Hello there";
+    $statusSent = 1;
+    $statusReceived = 0;
+    $stmt->bind_param("iiiiisiiiiis",
+        $myChatID, $myUserID, $myUserID, $partnerUserID, $statusSent, $msg,
+        $partnerChatID, $partnerUserID, $myUserID, $partnerUserID, $statusReceived, $msg
+    );
+    $stmt->execute();
+    $stmt->close();
 }
 
 
-// Chat of user A with user B
-$connection->query("INSERT INTO userchat (chat_owner, chat_partner, last_action, created_at) VALUES
-(111, 222, UNIX_TIMESTAMP(), UNIX_TIMESTAMP());");
-
-$myChatID = intval($connection->insert_id);
-
-// Chat of user B with user A
-$connection->query("INSERT INTO userchat (chat_owner, chat_partner, last_action, created_at) VALUES
-(222, 111, UNIX_TIMESTAMP(), UNIX_TIMESTAMP());");
-
-$partnerChatID = intval($connection->insert_id);
+function phpFeedback($type, $message) {
+    return "<div class='feedback {$type}'>{$message}</div>";
+}
 
 
-$connection->query("INSERT INTO userchat_msg (chat_id, msg_owner, sender, recipient, msg_date, msg_status, msg_text) VALUES
-($myChatID, 111, 111, 222, UNIX_TIMESTAMP(), 1, 'Hello there'),
-($partnerChatID, 222, 111, 222, UNIX_TIMESTAMP(), 0, 'Hello there');");
+// Close database connection
+$connection->close();
+
