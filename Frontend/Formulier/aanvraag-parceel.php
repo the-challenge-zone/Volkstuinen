@@ -49,11 +49,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link rel="stylesheet" href="aanvraag-parceel.css">
 </head>
 <body>
-  <div class="sidebar">
-    <img src="logovolkstuinen.png" alt="Logo">
-    <a href="#">&#8962;</a>
-    <a href="#">&#9881;</a>
-    <a href="#">&#x1F6AA;;</a>
+  
+<div class="sidebar">
+    <img src="../Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
+
+    <div class="Icoontjes">
+      <a href="dashboard.php">
+        <div class="icon1">
+          <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="Dashboard">
+        </div>
+      </a>
+      <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
+        <div class="icon2">
+          <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="Gebruikersinstellingen">
+        </div>
+      </a>
+      <a href="../../Frontend/logout.php">
+        <div class="icon3">
+          <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
+        </div>
+      </a>
+    </div>
   </div>
 
   <div class="header">VOLKSTUIN VERENING SITTARD</div>

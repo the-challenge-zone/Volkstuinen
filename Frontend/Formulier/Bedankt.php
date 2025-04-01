@@ -22,7 +22,7 @@
 <div class="content">
     <h1>Bedankt voor de aanvraag</h1>
     <div class="horizontal-line"></div>
-    <p>U zal binnen enkele momenten uw bevestiging ontvangen met uw conformatie email</p>
+    <p>U zal binnen enkele momenten uw bevestiging ontvangen op uw E-mail</p>
 </div>
 </body>
 </html>
