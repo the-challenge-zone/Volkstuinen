@@ -180,7 +180,11 @@ a:active {
 }
 
 
-
+.form_POST{
+    padding: 200px;
+    right: 50%;
+    top: 50%;
+}
 
 
 

@@ -10,11 +10,28 @@
   <div class="container">
     <div class="header">VOLKSTUIN VERENING SITTARD</div>
     <div class="content">
-      <div class="sidebar">
-        <img src="logovolkstuinen.png" alt="Logo">
-        <a href="#">&#8962;</a>
-        <a href="#">&#9881;</a>
-      </div>
+    <div class="sidebar">
+    <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
+    <div class="Icoontjes">
+
+    <a href="../../Frontend/Deelnamer/dashboard.php">
+            <div class="icon1">
+                <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
+            </div>
+        </a>
+        <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
+            </div>
+        </a>
+        <a href="../../Frontend/login.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
+            </div>
+        </a>
+    </div>
+
+</div>
       <div class="image-container">
         <img src="../../Frontend/Gedeeld/pictures/Baandert1-800px.jpg" alt="Grondbeheer">
       </div>

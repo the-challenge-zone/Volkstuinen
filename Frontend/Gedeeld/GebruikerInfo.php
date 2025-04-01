@@ -4,7 +4,6 @@ require_once __DIR__."/../../Backend/Models/User.php";
 checkSession($allowedUserTypes = [1,2,3]);
 $user = new User();
 $id = $_SESSION['user_id'];
-
 $user->findByIdUser($id)
 ?>
 <!DOCTYPE html>
@@ -48,13 +47,23 @@ $user->findByIdUser($id)
 <!DOCTYPE html>
 <html>
 <body>
-    <form method="POST">
+    <form class="form_POST" method="POST">
         <button type="submit" name="checkUser">Ga naar jouw pagina</button>
     </form>
     
     <?php
-    session_start(); // Start de sessie om gebruikersinformatie op te halen
-    require_once 'database.php'; // Zorg ervoor dat dit het juiste pad is naar jouw databasebestand
+
+
+if (!isset($_SESSION['user_id'])) {
+    echo "Sessie niet gevonden, probeer opnieuw in te loggen.";
+    exit();
+}
+
+
+
+
+                
+    require_once '../../Backend/DatabaseContext/database.php'; // Zorg ervoor dat dit het juiste pad is naar jouw databasebestand
     
     if (isset($_POST['checkUser'])) {
         if (isset($_SESSION['user_id'])) {
@@ -75,13 +84,13 @@ $user->findByIdUser($id)
                     // Stuur door op basis van usertype
                     switch ($user_type) {
                         case 1:
-                            header("Location: bestuurder_pagina.php");
+                            header("Location: ../Bestuurder/dashboard.php");
                             exit();
                         case 2:
-                            header("Location: beheerder_pagina.php");
+                            header("Location: ../Beheerder/dashboard.php");
                             exit();
                         case 3:
-                            header("Location: deelnemer_pagina.php");
+                            header("Location: ../Deelnamer/dashboard.php");
                             exit();
                         default:
                             echo "Ongeldig usertype.";
