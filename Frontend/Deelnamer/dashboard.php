@@ -6,7 +6,7 @@ session_start();
 $identifier = $_SESSION['identifier'] ?? 'Gebruiker'; // Get identifier from session
 
 
-session_start();
+// session_start(); heb dit apart gezet zorge voor een error
 require_once "../../Backend/Models/User.php";// Include database connection file
 
 $servername = "localhost";
@@ -35,7 +35,7 @@ $result = $conn->query($sql);
 
   <!-- Zijbalk -->
   <div class="sidebar">
-    <img src="pictures/logo-volkstuinverenigingsittard-512x512-white.png" alt="Logo">
+    <img src="../Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
 
     <div class="Icoontjes">
       <a href="dashboard.php">
