@@ -77,7 +77,7 @@ $result = $conn->query($sql);
         <div class="grond"><p>Grond</p></div>
 
         
-        <button class="maak-factuur"><p>Maak factuur</p></button>
+        
       </div>
     </div>
   </div>

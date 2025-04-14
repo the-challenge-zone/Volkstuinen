@@ -3,9 +3,38 @@
 session_start();
 require_once "../Backend/Models/User.php";
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $identifier = $_POST['identifier'] ?? '';
+  $password = $_POST['password'] ?? '';
+  $_SESSION['identifier'] = $identifier;
+
+  if (empty($identifier) || empty($password)) {
+      $error = "Naam of email en wachtwoord zijn nodig.";
+  } else {
+      $user = new User();
+
+      if ($user->LoginUser($identifier, $password)) {
+          switch ($_SESSION['user_type']) {
+              case 1:
+                  header("Location: ../Frontend/Deelnamer/dashboard.php");
+                  exit;
+              case 2:
+                  header("Location: ../Frontend/Beheerder/dashboard.php");
+                  exit;
+              case 3:
+                  header("Location: ../Frontend/Bestuurder/dashboard.php");
+                  exit;
+              default:
+                  $error = "niet bestaande UserType.";
+                  break;
+          }
+      } else {
+          $error = "Incorrect Gebruikersnaam, e-mail of wachtwoord.";
+      }
+  }
 
 
-}
+
 if (isset($error)) {
     echo htmlspecialchars($error);
 }
