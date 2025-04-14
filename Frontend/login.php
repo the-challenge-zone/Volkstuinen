@@ -38,7 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($error)) {
     echo htmlspecialchars($error);
 }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
