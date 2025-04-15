@@ -44,24 +44,12 @@ $user->findByIdUser($id)
 <div class="header">
     VOLKSTUIN VERENIGING SITTARD
 </div>
-<!DOCTYPE html>
-<html>
-<body>
-    <form class="form_POST" method="POST">
-        <button type="submit" name="checkUser">Ga naar jouw pagina</button>
-    </form>
-    
-    <?php
-
+<?php
 
 if (!isset($_SESSION['user_id'])) {
     echo "Sessie niet gevonden, probeer opnieuw in te loggen.";
     exit();
 }
-
-
-
-
                 
     require_once '../../Backend/DatabaseContext/database.php'; // Zorg ervoor dat dit het juiste pad is naar jouw databasebestand
     
@@ -107,34 +95,7 @@ if (!isset($_SESSION['user_id'])) {
     }
     ?>
 
-        <!-- <div class="">
-        <div class="">
-            <div class="">
-                <label>Voornaam</label>
-                <input type="text" id="voornaam" placeholder="Voornaam">
-                <label>Achternaam</label>
-                <input type="text" id="achternaam" placeholder="Achternaam">
-                <label>E-mailadres</label>
-                <input type="email" id="email" placeholder="E-mailadres">
-                <label>Telefoonnummer</label>
-                <input type="tel" id="telefoon" placeholder="Telefoonnummer">
-                <label>Woonadres</label>
-                <input type="text" id="straat" placeholder="Straatnaam">                                    dit even appart gezet om aan de rest te werken
-                <div class="row">
-                    <input type="text" id="postcode" placeholder="Postcode">
-                    <input type="text" id="huisnummer" placeholder="Huisnummer">
-                </div>
-            </div>
-            <div class="">
-                <label>Complex Naam</label>
-                <input type="text" id="complex-naam" placeholder="Complex Naam">
-                <label>m²</label>
-                <input type="text" id="complex-size" placeholder="?m²">
-                <label>Kosten</label>
-                <input type="text" id="kosten" placeholder="Kosten">
-            </div>
-        </div>
-        </div> -->
+    
 
 </body>
 </html>
