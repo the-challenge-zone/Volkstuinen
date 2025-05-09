@@ -1,3 +1,4 @@
 inloggen voor deelnamer bestuurder en beheerder werkt.
 persoonsgegevens van users is nog niet beschikbaar.
 uitloggen werkt.
+knoppen in dashboard zijn nog niet functioneel
