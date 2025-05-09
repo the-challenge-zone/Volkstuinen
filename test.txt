@@ -2,3 +2,4 @@ inloggen voor deelnamer bestuurder en beheerder werkt.
 persoonsgegevens van users is nog niet beschikbaar.
 uitloggen werkt.
 knoppen in dashboard zijn nog niet functioneel
+formulier aanvraag_parceel word niet goed afgewerkt.
