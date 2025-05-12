@@ -1,3 +1,7 @@
+user type 4 admin  account gegevens:
+gebruikersnaam: admin
+wachtwoord: admin
+
 user type 3 bestuurder account gegevens:
 E-mail: bestuurder@gmail.com
 gebruikersnaam: bestuurder
@@ -10,6 +14,6 @@ gebruikersnaam: beheerder
 wachtwoord:	beheerder
 
 user type 1 deelnemer account gegevens:
-E-mail:deelnemer@gmail.com
+E-mail: deelnemer@gmail.com
 gebruikersnaam: deelnemer
 wachtwoord: deelnemer
