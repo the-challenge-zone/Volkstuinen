@@ -20,7 +20,6 @@ $user->findByIdUser($id)
 <div class="sidebar">
     <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
-
     <a href="../../Frontend/Deelnamer/dashboard.php">
             <div class="icon1">
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
