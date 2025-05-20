@@ -3,10 +3,31 @@ require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__ . "/../../Backend/Models/User.php";
 checkSession($allowedUserTypes = [3]);
 
-
+$gebruiker = $_SESSION['user_id'];
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
+
+
+// Haal UserType op
+$userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
+
+// Bepaal juiste dashboard link
+switch ($gebruiker) {
+    case 1:
+        $dashboardLink = "../../Frontend/Bestuurder/gebruikersinfo.php";
+        break;
+    case 2:
+        $dashboardLink = "../../Frontend/Beheerder/gebruikerinfo.php";
+        break;
+    case 3:
+        $dashboardLink = "../../Frontend/Deelnamer/gebruikerinfo.php";
+        break;
+    default:
+        // Ongeldig usertype, stuur naar login
+        header("Location: ../../Frontend/login.php");
+        exit();}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,31 +40,28 @@ $usersResult = $users->findAllUsers();
     <script src="dashboard.js" defer></script>
 </head>
 <body>
-
-
 <div class="sidebar">
-<img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
+    <img src="../../Frontend/Bestuurder/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
 
-        <a href="dashboard.php">
-            <div class="icon1">
-                <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
-            </div>
-        </a>
-        <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
-            <div class="icon2">
-                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-            </div>
-        </a>
-        <a href="../../Frontend/login.php">
-            <div class="icon3">
-                
-                <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
-            </div>
-        </a>
+    <a href="dashboard.php">
+        <div class="icon1">
+            <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
+        </div>
+    </a>
+    <a href="<?$dashboardLink?>">
+        <div class="icon2">
+            <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+        </div>
+    </a>
+    <a href="../../Frontend/login.php">
+        <div class="icon2">
+            <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
+        </div>
+    </a>
     </div>
 
-</div>
+  </div>
 
 <div class="header">
     VOLKSTUIN VERENING SITTARD

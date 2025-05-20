@@ -1,3 +1,4 @@
+
 * {
   margin: 0;
   padding: 0;
@@ -17,27 +18,27 @@ body {
   font-size: 24px;
   font-weight: bold;
   margin: 0;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 1000; 
 }
 
 
 .sidebar {
-  width: 80px;
-  background-color: #38393c;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  z-index: 1001;
+width: 80px;
+background-color: #38393c;
+position: fixed;
+top: 0; 
+left: 0;
+bottom: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding-top: 20px;
+z-index: 1001; 
+margin: 0; 
 }
-
 
 
 .sidebar img {
@@ -67,21 +68,21 @@ body {
 
 
 
-/* content in dashboard */
+  /* content in dashboard */
 
-.Dashtitle{
-  display: flex;
-  align-items: center;          /* Center vertically */
-  justify-content: center;       /* Center horizontally */
-  background-color: #2e2f32;
-  width: auto;
-  height: 100px;
-  margin-top: 100px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  text-align: center;
-  font-size: 24px;
-}
+  .Dashtitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2e2f32;
+    width: auto;
+    height: 100px;
+    margin-top: 100px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    text-align: center;
+    font-size: 24px;
+  }
 
 a:link {
   color: rgba(44, 96, 56, 1);
@@ -119,21 +120,21 @@ a:active {
 
 
 .news-sectie {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: relative;
-  padding-left: 10px;
-  max-height: 500px;
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: 10px;
+overflow-y: auto; 
+overflow-x: hidden;
+position: relative;
+padding-left: 10px;
+max-height: 500px;
 }
 
 .newstitle {
   background-color: #2e2f32;
   position: sticky;
-  top: 0;
+  top: 0; 
   z-index: 10;
   padding: 15px;
   border-top-left-radius: 10px;
@@ -149,19 +150,19 @@ a:active {
 }
 
 .notif-item {
-  background-color: #333538;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 0 10px;
+background-color: #333538;
+padding: 10px;
+border-radius: 5px;
+margin: 0 10px; 
 }
 
 
 .news-sectie::-webkit-scrollbar {
-  width: 10px;
+  width: 10px;              
 }
 
 .news-sectie::-webkit-scrollbar-track {
-  background: transparent;
+  background: transparent;       
 }
 
 .news-sectie::-webkit-scrollbar-thumb {
@@ -235,7 +236,7 @@ a:active {
 
 /* Modal Background */
 .modal {
-  display: none;
+  display: none; 
   position: fixed;
   top: 0;
   left: 0;

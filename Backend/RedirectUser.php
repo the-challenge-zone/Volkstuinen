@@ -5,6 +5,9 @@ if (isset($_SESSION['user_type'])) {
     $userType = $_SESSION['user_type'];
 
     switch ($userType) {
+        case 4:
+            header("Location:../Frontend/Admin/dashboard.php");
+            exit;
         case 3:
             header("Location: /Frontend/Bestuurder/dashboard.php");
             exit;

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
-
-checkSession($allowedUserTypes = [2]);
+require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
+// checkSession($allowedUserTypes = [2,3,4]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,11 +24,21 @@ checkSession($allowedUserTypes = [2]);
                   <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
               </div>
           </a>
-          <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
-              <div class="icon2">
-                  <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-              </div>
-          </a>
+          <?php 
+        if ($_SESSION['user_type'] == 3) {
+            echo '<a href="Leden-beheer.php">
+                <div class="icon2">
+                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+                </div>
+            </a>';
+        } else {
+            echo '<a href="../../Frontend/Deelnamer/dashboard.php">
+                <div class="icon2">
+                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+                </div>
+            </a>';
+        }
+        ?>
           <a href="../../Frontend/login.php">
               <div class="icon2">
                   <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
@@ -57,6 +67,38 @@ checkSession($allowedUserTypes = [2]);
             </tr>
             </thead>
             <tbody>
+                
+                <?php
+                $conn = Database::GetConnection();
+
+                // Fetch members
+                $query = "SELECT Name, Complex, Email FROM users";
+                $stmt = $conn->query($query);
+
+                $firstRow = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($firstRow) {
+                    // Output the first row
+                    echo "<tr>
+                            <td>" . htmlspecialchars($firstRow["Name"]) . "</td>
+                            <td>" . htmlspecialchars($firstRow["Complex"]) . "</td>
+                            <td>?</td> <!-- m² data isn't in DB, so placeholder -->
+                            <td>" . htmlspecialchars($firstRow["Email"]) . "</td>
+                        </tr>";
+                    // Output the rest
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>
+                                <td>" . htmlspecialchars($row["Name"]) . "</td>
+                                <td>" . htmlspecialchars($row["Complex"]) . "</td>
+                                <td>?</td>
+                                <td>" . htmlspecialchars($row["Email"]) . "</td>
+                            </tr>";
+                        }
+                    } else {
+                    echo "<tr><td colspan='4'>Geen leden gevonden.</td></tr>";
+                    }
+                $conn = null;
+                ?>
+
             </tbody>
         </thead>
       </table>
