@@ -10,32 +10,30 @@ $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
         $counter = count($usersResult);
 ?>
 
-<?php
-// $gebruiker = $_SESSION['user_id'];
-// $users = new User();
-// $usersResult = $users->findAllUsers();
-//         $counter = count($usersResult);
+<!-- $gebruiker = $_SESSION['user_id'];
+$users = new User();
+$usersResult = $users->findAllUsers();
+        $counter = count($usersResult);
 
 
-// // Haal UserType op
-// $userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
+// Haal UserType op
+$userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
 
-// // Bepaal juiste dashboard link
-// switch ($gebruiker) {
-//     case 1:
-//         $dashboardLink = "../../Frontend/Bestuurder/gebruikersinfo.php";                         Jarolds creation
-//         break;
-//     case 2:
-//         $dashboardLink = "../../Frontend/Beheerder/gebruikerinfo.php";
-//         break;
-//     case 3:
-//         $dashboardLink = "../../Frontend/Deelnamer/gebruikerinfo.php";
-//         break;
-//     default:
-//         // Ongeldig usertype, stuur naar login
-//         header("Location: ../../Frontend/login.php");
-//         exit();}
-?>
+// Bepaal juiste dashboard link
+switch ($gebruiker) {
+    case 1:
+        $dashboardLink = "../../Frontend/Bestuurder/gebruikersinfo.php";                         Jarolds creation
+        break;
+    case 2:
+        $dashboardLink = "../../Frontend/Beheerder/gebruikerinfo.php";
+        break;
+    case 3:
+        $dashboardLink = "../../Frontend/Deelnamer/gebruikerinfo.php";
+        break;
+    default:
+        // Ongeldig usertype, stuur naar login
+        header("Location: ../../Frontend/login.php");
+        exit();} -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -61,8 +59,7 @@ $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
             <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
         </div>
     </a>
-    <a href="<?$dashboardLink?>">
-
+    <a href="<?'$dashboardLink'?>">
         <div class="icon2">
             <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
         </div>
@@ -84,15 +81,6 @@ $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
     <p class="Dashtitle"> Welkom Beheerder</p>
     <div class="content">
 
-
-        <!-- News Sectie (hier komen alle notificaties) -->
-        <div class="news-sectie">
-          <h2 class="newstitle">News binnen complex</h2>
-          <div class="notificaties" id="notificaties">
-            <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
-          </div>
-        </div>
-
         <!-- Modal voor Full View -->
         <div class="modal" id="modal">
             <div class="modal-content">
@@ -105,7 +93,7 @@ $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
         </div>
 
       <div class="grote-foto">
-        <img src="../../Frontend/Gedeeld/pictures/Slachthuis-800px.jpg" alt="tuin foto">
+        <img src="../../Frontend\Gedeeld\pictures\Slachthuis.jpg" alt="tuin foto">
       </div>
 
       <div class="stats-sectiie">
