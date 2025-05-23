@@ -13,7 +13,7 @@ $gebruiker = $_SESSION['user_id'];
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
-s
+
 
 // Haal UserType op
 $userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
@@ -21,7 +21,7 @@ $userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
 // Bepaal juiste dashboard link
 switch ($gebruiker) {
     case 1:
-        $dashboardLink = "../../Frontend/Bestuurder/gebruikersinfo.php";                         Jarolds creation
+        $dashboardLink = "../../Frontend/Bestuurder/gebruikersinfo.php";                         
         break;
     case 2:
         $dashboardLink = "../../Frontend/Beheerder/gebruikerinfo.php";
