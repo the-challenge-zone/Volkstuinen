@@ -85,7 +85,7 @@ class UserModel
         return $stmt->execute();
     }
     //Login dat werkt met beide email en en Gebruikers naam
-    public function LoginUser($Identifier, $Password): bool
+    public function LoginUser($identifier, $password)
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
@@ -94,8 +94,8 @@ class UserModel
 
         $sql = "SELECT * FROM " . static::$table_name . " WHERE Email = :identifier1 OR Name = :identifier2 LIMIT 1";
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":identifier1", $Identifier);
-        $stmt->bindValue(":identifier2", $Identifier);
+        $stmt->bindValue(":identifier1", $identifier);
+        $stmt->bindValue(":identifier2", $identifier);
         $stmt->execute();
 
 
@@ -105,7 +105,7 @@ class UserModel
         }
 
 
-        if (password_verify($Password, $user['Password'])) {
+        if (password_verify($password, $user['Password'])) {
             $_SESSION['user_id'] = $user['Id'];
             $_SESSION['user_name'] = $user['Name'];
             $_SESSION['user_email'] = $user['Email'];

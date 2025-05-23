@@ -8,13 +8,12 @@ $secondary_SearchTerm = $_SESSION['user_complex'];
 $users = new User();
 $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
         $counter = count($usersResult);
-?>
 
-<!-- $gebruiker = $_SESSION['user_id'];
+$gebruiker = $_SESSION['user_id'];
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
-
+s
 
 // Haal UserType op
 $userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
@@ -33,8 +32,8 @@ switch ($gebruiker) {
     default:
         // Ongeldig usertype, stuur naar login
         header("Location: ../../Frontend/login.php");
-        exit();} -->
-
+        exit();}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

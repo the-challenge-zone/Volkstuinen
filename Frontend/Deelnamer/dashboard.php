@@ -6,7 +6,6 @@ session_start();
 $identifier = $_SESSION['identifier'] ?? 'Gebruiker'; // Get identifier from session
 
 
-// session_start(); heb dit apart gezet zorge voor een error
 require_once "../../Backend/Models/User.php";// Include database connection file
 
 $servername = "localhost";
@@ -16,7 +15,7 @@ $dbname = "volkstuinen";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "SELECT * FROM parcel ";
+$sql = "SELECT * FROM parcel";
 $result = $conn->query($sql);
 ?>
 
