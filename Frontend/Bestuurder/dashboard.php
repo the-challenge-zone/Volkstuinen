@@ -35,7 +35,7 @@ $usersResult = $users->findAllUsers();
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
             </div>
         </a>
-        <a href="../../Frontend/login.php">
+        <a href="../../Backend/logout.php">
             <div class="icon3">
                 
                 <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
