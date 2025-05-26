@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 checkSession([1]); // Only allow user type 1
-
 session_start();
 $identifier = $_SESSION['identifier'] ?? 'Gebruiker'; // Get identifier from session
 
@@ -47,7 +46,7 @@ $result = $conn->query($sql);
           <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="Gebruikersinstellingen">
         </div>
       </a>
-      <a href="../../Frontend/logout.php">
+      <a href="../../Backend/logout.php">
         <div class="icon3">
           <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
         </div>

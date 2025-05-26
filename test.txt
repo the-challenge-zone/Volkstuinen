@@ -1,7 +1,7 @@
-inloggen voor deelnamer bestuurder en beheerder werkt.
+inloggen voor deelnamer bestuurder en beheerder werkt. X
 persoonsgegevens van users is nog niet beschikbaar.
-uitloggen werkt.
-knoppen in dashboard zijn nog niet functioneel
+uitloggen werkt. X
+knoppen in dashboard zijn nog niet functioneel X
 formulier aanvraag_parceel word niet goed afgewerkt.
 aanvraag compleet bevestigings mail werkt nog niet.
 
@@ -24,10 +24,10 @@ Bestuurder kan nieuwe account registreren en inloggen ermee
 Deelnamer kan niet klikken op de opties kosten en grond
 Deelnamer krijgt geen eigen persoonlijke gegevens te zien
 Deelnamer kan wel manoevreren tussen de schermopties
-Deelnamer kan wel op knoppen klikken en doorgeleid worden
-Deelnamer krijgt wel te zien dat die op Deelnamer pagina zit
-Deelnamer kan correct uitloggen
+Deelnamer kan wel op knoppen klikken en doorgeleid worden x
+Deelnamer krijgt wel te zien dat die op Deelnamer pagina zit x
+Deelnamer kan correct uitloggen x
 Deelnamer kan nieuwe account registreren en inloggen ermee
 
 
-admin loguit werkt niet
+admin loguit werkt niet (er is geen admin pagina)

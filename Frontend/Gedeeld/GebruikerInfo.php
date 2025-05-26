@@ -10,26 +10,18 @@ $user = new User();
 $id = $_SESSION['user_id'];
 $user->findByIdUser($id);
 
-// Haal UserType op
-$userType = $user->getUserType(); // Zorg dat getUserType() bestaat in User.php
-
-// Bepaal juiste dashboard link
-switch ($userType) {
+switch ($_SESSION['user_type']) 
+{
     case 1:
-        $dashboardLink = "../../Frontend/Bestuurder/dashboard.php";
-        break;
+        $dashboardurl = "../../Frontend/Deelnamer/dashboard.php";
     case 2:
-        $dashboardLink = "../../Frontend/Beheerder/dashboard.php";
-        break;
+        $dashboardurl = "../../Frontend/Beheerder/dashboard.php";
     case 3:
-        $dashboardLink = "../../Frontend/Deelnamer/dashboard.php";
-        break;
+        $dashboardurl = "../../Frontend/Bestuurder/dashboard.php";
     default:
-        // Ongeldig usertype, stuur naar login
-        header("Location: ../../Frontend/login.php");
-        exit();
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,9 +36,7 @@ switch ($userType) {
 <div class="sidebar">
     <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
-
-        <!-- Dynamische home-knop -->
-        <a href="../../Frontend/Bestuurder/dashboard.php">
+    <a href="../../Frontend/Deelnamer/dashboard.php">
             <div class="icon1">
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>
@@ -73,8 +63,58 @@ switch ($userType) {
 <div class="header">
     VOLKSTUIN VERENIGING SITTARD
 </div>
+<?php
 
-<!-- Je kunt hier de rest van je pagina inhoud plaatsen -->
+// if (!isset($_SESSION['user_id'])) {
+//     echo "Sessie niet gevonden, probeer opnieuw in te loggen.";
+//     exit();
+// }
+                
+//     require_once '../../Backend/DatabaseContext/database.php'; // Zorg ervoor dat dit het juiste pad is naar jouw databasebestand
+    
+//     if (isset($_POST['checkUser'])) {
+//         if (isset($_SESSION['user_id'])) {
+//             try {
+//                 $conn = Database::GetConnection();
+                
+//                 // Haal usertype op uit database
+//                 $user_id = $_SESSION['user_id'];
+//                 $sql = "SELECT UserType FROM users WHERE id = :id";
+//                 $stmt = $conn->prepare($sql);
+//                 $stmt->bindParam(":id", $user_id, PDO::PARAM_INT);
+//                 $stmt->execute();
+//                 $user = $stmt->fetch();
+                
+//                 if ($user) {
+//                     $user_type = $user['UserType'];
+                    
+//                     // Stuur door op basis van usertype
+//                     switch ($user_type) {
+//                         case 1:
+//                             header("Location: ../Bestuurder/dashboard.php");
+//                             exit();
+//                         case 2:
+//                             header("Location: ../Beheerder/dashboard.php");                                  Ik snap het niet helemaal
+//                             exit();
+//                         case 3:
+//                             header("Location: ../Deelnamer/dashboard.php");
+//                             exit();
+//                         default:
+//                             echo "Ongeldig usertype.";
+//                     }
+//                 } else {
+//                     echo "Usertype niet gevonden.";
+//                 }
+//             } catch (Exception $e) {
+//                 echo "Fout bij ophalen usertype: " . htmlspecialchars($e->getMessage());
+//             }
+//         } else {
+//             echo "Geen gebruiker ingelogd.";
+//         }
+//     }
+//     ?>
+
+    
 
 </body>
 </html>

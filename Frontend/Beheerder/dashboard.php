@@ -63,7 +63,7 @@ switch ($gebruiker) {
             <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
         </div>
     </a>
-    <a href="../../Frontend/login.php">
+    <a href="../../Backend/logout.php">
         <div class="icon2">
             <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
         </div>

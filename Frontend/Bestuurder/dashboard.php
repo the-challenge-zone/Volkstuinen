@@ -46,21 +46,22 @@ switch ($gebruiker) {
     <img src="../../Frontend/Bestuurder/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
 
-    <a href="dashboard.php">
-        <div class="icon1">
-            <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
-        </div>
-    </a>
-    <a href="<?$dashboardLink?>">
-        <div class="icon2">
-            <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-        </div>
-    </a>
-    <a href="../../Frontend/login.php">
-        <div class="icon2">
-            <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
-        </div>
-    </a>
+        <a href="dashboard.php">
+            <div class="icon1">
+                <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
+            </div>
+        </a>
+        <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+            </div>
+        </a>
+        <a href="../../Backend/logout.php">
+            <div class="icon3">
+                
+                <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
+            </div>
+        </a>
     </div>
 
   </div>
@@ -79,6 +80,7 @@ switch ($gebruiker) {
             <h2 class="newstitle">News binnen complex</h2>
             <div class="notificaties" id="notificaties">
                 <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
+                <p>test</p>
             </div>
         </div>
 
