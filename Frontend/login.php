@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               case 4:
                   header("Location: ../Frontend/Admin/dashboard.php");
                   exit; 
+                  
               default:
                   $error = "niet bestaande UserType.";
                   break;
