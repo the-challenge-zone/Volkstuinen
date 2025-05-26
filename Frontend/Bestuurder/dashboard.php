@@ -59,6 +59,7 @@ $usersResult = $users->findAllUsers();
             <h2 class="newstitle">News binnen complex</h2>
             <div class="notificaties" id="notificaties">
                 <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
+                <p>test</p>
             </div>
         </div>
 
