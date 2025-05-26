@@ -17,10 +17,4 @@ class User extends UserModel
         'Membership' => null,
         'Payment' => null
     ];
-function getUserType()
-{
-    return $this->properties['UserType'] ?? null; 
-}
-
-
 }

@@ -1,34 +1,11 @@
 <?php
-var_dump($_SESSION);
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__ . "/../../Backend/Models/User.php";
 checkSession($allowedUserTypes = [3]);
 
-$gebruiker = $_SESSION['user_id'];
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
-
-
-// Haal UserType op
-$userType = $users->getUserType(); // Zorg dat getUserType() bestaat in User.php
-
-// Bepaal juiste dashboard link
-switch ($gebruiker) {
-    case 1:
-        $dashboardLink = "../../Frontend/Deelnamer/gebruikersinfo.php";
-        break;
-    case 2:
-        $dashboardLink = "../../Frontend/Beheerder/gebruikerinfo.php";
-        break;
-    case 3:
-        $dashboardLink = "../../Frontend/Bestuurder/gebruikerinfo.php";
-        break;
-    default:
-        // Ongeldig usertype, stuur naar login
-        header("Location: ../../Frontend/login.php");
-        exit();
-        }
 
 ?>
 <!DOCTYPE html>
