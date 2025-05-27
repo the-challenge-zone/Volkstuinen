@@ -76,7 +76,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   <div class="content">
     <h1>Grond aanvragen</h1>
-    <center>
     <div class="form-container">
       <form action="" method="POST">
         <label for="parcel">Parceel:</label>
