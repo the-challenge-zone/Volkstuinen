@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__."/../../Backend/Models/User.php";
-checkSession($allowedUserTypes = [1,2,3]);
+checkSession($allowedUserTypes = [1]);
 $user = new User();
 $id = $_SESSION['user_id'];
 $user->findByIdUser($id)
@@ -31,7 +31,7 @@ $user->findByIdUser($id)
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
             </div>
         </a>
-        <a href="../../Frontend/login.php">
+        <a href="../../Backend/logout.php>
             <div class="icon2">
                 <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
             </div>

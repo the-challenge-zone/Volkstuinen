@@ -50,7 +50,7 @@ switch ($_SESSION['user_type'])
         </a>
 
         <!-- Uitloggen -->
-        <a href="../../Frontend/logout.php">
+        <a href="../../Backend/logout.php">
             <div class="icon2">
                 <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
             </div>

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__."/../../Backend/Models/User.php";
-checkSession($allowedUserTypes = [1,2,3]);
+checkSession($allowedUserTypes = [2]);
 $user = new User();
 $id = $_SESSION['user_id'];
 $user->findByIdUser($id)

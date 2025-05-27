@@ -12,6 +12,7 @@ checkSession($allowedUserTypes = [3]);
   <link rel="stylesheet" href="CSS-Bestuurder/Leden-beheer.css">
 </head>
 <body>
+    
   <!-- Sidebar -->
   <div class="sidebar">
       <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
@@ -22,22 +23,12 @@ checkSession($allowedUserTypes = [3]);
                   <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
               </div>
           </a>
-           <?php 
-        if ($_SESSION['user_type'] == 3) {
-            echo '<a href="Leden-beheer.php">
+            <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
                 <div class="icon2">
-                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-                </div>
-            </a>';
-        } else {
-            echo '<a href="../../Frontend/Deelnemer/dashboard.php">
-                <div class="icon2">
-                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-                </div>
-            </a>';
-        }
-        ?>
-          <a href="../../Frontend/login.php">
+                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="Gebruiker Info">
+                </div>  
+            </a>
+          <a href="../../Backend/logout.php">
               <div class="icon2">
                   <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
               </div>

@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__."/../../Backend/Models/User.php";
-checkSession($allowedUserTypes = [1,2,3]);
+checkSession($allowedUserTypes = [3]);
 $user = new User();
 $id = $_SESSION['user_id'];
 $user->findByIdUser($id)
@@ -12,7 +12,7 @@ $user->findByIdUser($id)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volkstuin Vereniging Sittard</title>
-    <link rel="stylesheet" href="CSS-Gedeeld/Gebruikerinfo.css">
+    <link rel="stylesheet" href="CSS-Bestuurder/GebruikerInfo.css">
     </head>
 <body>
 
