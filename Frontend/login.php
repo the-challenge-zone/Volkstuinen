@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($user->LoginUser($identifier, $password)) {
           switch ($_SESSION['user_type']) {
               case 1:
-                  header("Location: ../Frontend/Deelnamer/dashboard.php");
+                  header("Location: ../Frontend/Deelnemer/dashboard.php");
                   exit;
               case 2:
                   header("Location: ../Frontend/Beheerder/dashboard.php");

@@ -1,4 +1,4 @@
-inloggen voor deelnamer bestuurder en beheerder werkt. X
+inloggen voor deelnemer bestuurder en beheerder werkt. X
 persoonsgegevens van users is nog niet beschikbaar.
 uitloggen werkt. X
 knoppen in dashboard zijn nog niet functioneel X
@@ -21,13 +21,13 @@ Bestuurder krijgt wel te zien dat die op Bestuurder pagina zit
 Bestuurder kan correct uitloggen
 Bestuurder kan nieuwe account registreren en inloggen ermee
 
-Deelnamer kan niet klikken op de opties kosten en grond
-Deelnamer krijgt geen eigen persoonlijke gegevens te zien
-Deelnamer kan wel manoevreren tussen de schermopties
-Deelnamer kan wel op knoppen klikken en doorgeleid worden x
-Deelnamer krijgt wel te zien dat die op Deelnamer pagina zit x
-Deelnamer kan correct uitloggen x
-Deelnamer kan nieuwe account registreren en inloggen ermee
+Deelnemer kan niet klikken op de opties kosten en grond
+Deelnemer krijgt geen eigen persoonlijke gegevens te zien
+Deelnemer kan wel manoevreren tussen de schermopties
+Deelnemer kan wel op knoppen klikken en doorgeleid worden x
+Deelnemer krijgt wel te zien dat die op Deelnemer pagina zit x
+Deelnemer kan correct uitloggen x
+Deelnemer kan nieuwe account registreren en inloggen ermee
 
 
 admin loguit werkt niet (er is geen admin pagina)

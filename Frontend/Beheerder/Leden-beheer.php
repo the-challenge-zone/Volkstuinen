@@ -32,7 +32,7 @@ require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
                 </div>
             </a>';
         } else {
-            echo '<a href="../../Frontend/Deelnamer/dashboard.php">
+            echo '<a href="../../Frontend/Deelnemer/dashboard.php">
                 <div class="icon2">
                     <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
                 </div>

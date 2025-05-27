@@ -13,7 +13,7 @@ $user->findByIdUser($id);
 switch ($_SESSION['user_type']) 
 {
     case 1:
-        $dashboardurl = "../../Frontend/Deelnamer/dashboard.php";
+        $dashboardurl = "../../Frontend/Deelnemer/dashboard.php";
     case 2:
         $dashboardurl = "../../Frontend/Beheerder/dashboard.php";
     case 3:
@@ -36,7 +36,7 @@ switch ($_SESSION['user_type'])
 <div class="sidebar">
     <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
-    <a href="../../Frontend/Deelnamer/dashboard.php">
+    <a href="../../Frontend/Deelnemer/dashboard.php">
             <div class="icon1">
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>

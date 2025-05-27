@@ -24,7 +24,7 @@ $result = $conn->query($sql);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Volkstuin Vereniging Sittard</title>
-  <link rel="stylesheet" href="CSS-Deelnamer/dashboard.css">
+  <link rel="stylesheet" href="CSS-Deelnemer/dashboard.css">
 </head>
 <body>
 

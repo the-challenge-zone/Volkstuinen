@@ -21,7 +21,7 @@ $user->findByIdUser($id)
     <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
 
-    <a href="../../Frontend/Bestuurder/dashboard.php">
+    <a href="../../Frontend/Deelnemer/dashboard.php">
             <div class="icon1">
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>
@@ -31,7 +31,7 @@ $user->findByIdUser($id)
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
             </div>
         </a>
-        <a href="../../Backend/logout.php">
+        <a href="../../Frontend/login.php">
             <div class="icon2">
                 <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
             </div>
@@ -44,9 +44,5 @@ $user->findByIdUser($id)
 <div class="header">
     VOLKSTUIN VERENIGING SITTARD
 </div>
-
-
-    
-
-</body>
+<body>
 </html>

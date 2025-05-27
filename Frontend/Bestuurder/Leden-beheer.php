@@ -30,7 +30,7 @@ checkSession($allowedUserTypes = [3]);
                 </div>
             </a>';
         } else {
-            echo '<a href="../../Frontend/Deelnamer/dashboard.php">
+            echo '<a href="../../Frontend/Deelnemer/dashboard.php">
                 <div class="icon2">
                     <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
                 </div>
