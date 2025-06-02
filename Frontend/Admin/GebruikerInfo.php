@@ -40,13 +40,9 @@ $user->findByIdUser($id)
 
 </div>
 
-
 <div class="header">
     VOLKSTUIN VERENIGING SITTARD
 </div>
-
-
-    
 
 </body>
 </html>
