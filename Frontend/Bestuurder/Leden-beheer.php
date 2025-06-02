@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
-
+require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
 checkSession($allowedUserTypes = [3]);
 ?>
 <!DOCTYPE html>
