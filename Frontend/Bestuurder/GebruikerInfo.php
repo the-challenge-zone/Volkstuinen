@@ -44,9 +44,5 @@ $user->findByIdUser($id)
 <div class="header">
     VOLKSTUIN VERENIGING SITTARD
 </div>
-
-
-    
-
 </body>
 </html>
