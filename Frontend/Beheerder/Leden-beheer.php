@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
-// checkSession($allowedUserTypes = [2,3,4]);
+checkSession($allowedUserTypes = [2]);
 ?>
 <!DOCTYPE html>
 <html lang="en">

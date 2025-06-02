@@ -56,12 +56,43 @@ checkSession($allowedUserTypes = [3]);
             </tr>
             </thead>
             <tbody>
+                
+                <?php
+                $conn = Database::GetConnection();
+
+                // Fetch members
+                $query = "SELECT Name, Complex, Email FROM users";
+                $stmt = $conn->query($query);
+
+                $firstRow = $stmt->fetch(PDO::FETCH_ASSOC);
+                if ($firstRow) {
+                    // Output the first row
+                    echo "<tr>
+                            <td>" . htmlspecialchars($firstRow["Name"]) . "</td>
+                            <td>" . htmlspecialchars($firstRow["Complex"]) . "</td>
+                            <td>?</td> <!-- m² data isn't in DB, so placeholder -->
+                            <td>" . htmlspecialchars($firstRow["Email"]) . "</td>
+                        </tr>";
+                    // Output the rest
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        echo "<tr>
+                                <td>" . htmlspecialchars($row["Name"]) . "</td>
+                                <td>" . htmlspecialchars($row["Complex"]) . "</td>
+                                <td>?</td>
+                                <td>" . htmlspecialchars($row["Email"]) . "</td>
+                            </tr>";
+                        }
+                    } else {
+                    echo "<tr><td colspan='4'>Geen leden gevonden.</td></tr>";
+                    }
+                $conn = null;
+                ?>
+
             </tbody>
         </thead>
       </table>
     </div>
   </div>
-
   <!-- Modal -->
   <div id="modal" class="modal">
       <div class="modal-content">
