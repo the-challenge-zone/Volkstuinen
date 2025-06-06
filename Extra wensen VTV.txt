@@ -1,26 +1,5 @@
-duitse nummers bruikbaar maken.
-
-aanvraag voltooings pop up verbeteren (leesbaarheid).
-
-Automatische mail toevoegen bij aanvraag goedkeuring (optioneel).
-
-automatische beschikbare grond weghalen na aanvraag goedkeuring.
-
-aanvraag mogelijkheid op niet beschikbare tuin parcelen. Aparte aanvragen voor beschikbare en onbeschikbare parcelen/complexen (Wachtrij).
-
-wachtrij kunnen ordenen op aanvraag datum.
-
-gegevens omzetten naar excel (optioneel).
-
-ledenbeheer: email adress, tuinnummer(s) en vierkante meters tuin toevoegen.
-
 Tuinen kunnen toevoegen als Admin/optie om tuinen te kunnen aanpassen qua meters (opsplitsing van tuinen)
 
 nieuwssectie binnenin het complex (dit moet gedaan kunnen worden door een admin en/of bestuurder) (berichten zijn complex gerelateerd en komt binnen voor elke persoon binnen een bepaald complex).
 
 Terug kunnen kijken op berichten (elke rank moet dit kunnen) (nieuwe berichten/archief berichten).
-
-Website online zetten zodat productgevers kunnen testen en feedback geven.
-
-
-
