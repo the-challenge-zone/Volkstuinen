@@ -86,9 +86,14 @@
                 <img src="../../Frontend/Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>
         </a>
-        <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
+        <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
             <div class="icon2">
                 <img src="../../Frontend/Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+            </div>
+        </a>
+        <a href="../../Frontend/Bestuurder/complex.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
             </div>
         </a>
         <a href="../../Frontend/login.php">

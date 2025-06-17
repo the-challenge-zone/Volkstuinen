@@ -7,7 +7,21 @@ checkSession($allowedUserTypes = [2]);
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
+require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
+$conn = Database::GetConnection();
 
+$query = "SELECT Complex, SUM(Size) AS TotalSize FROM parcel_free GROUP BY Complex";
+$stmt = $conn->query($query);
+
+$complexData = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $complexData[] = [
+        'name' => $row['Complex'],
+        'size' => (int)$row['TotalSize']
+    ];
+}
+
+$conn = null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +29,9 @@ $usersResult = $users->findAllUsers();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Volkstuin Vereniging Sittard</title>
+  <script>
+    const complexChartData = <?php echo json_encode($complexData); ?>;
+</script>
   <link rel="stylesheet" href="CSS-Beheerder/dashboard.css">
     <!-- javascript library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,7 +50,11 @@ $usersResult = $users->findAllUsers();
             <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
         </div>
     </a>
+<<<<<<< Updated upstream
     <a href="../../Frontend/Beheerder/GebruikerInfo.php">
+=======
+    <a href="GebruikerInfo.php">
+>>>>>>> Stashed changes
         <div class="icon2">
             <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
         </div>
@@ -70,19 +91,18 @@ $usersResult = $users->findAllUsers();
         <img src="../../Frontend\Gedeeld\pictures\Slachthuis.jpg" alt="tuin foto">
       </div>
 
-      <div class="stats-sectiie">
+      <div class="stats-sectie">
         <div class="stats-item">
             <a href="Leden-beheer.php">
           <h3>Aantal Deelnemers In Complex</h3></a>
           <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
       </div>
         <div class="stats-item1">
-          <h3>Grond In Gebruik</h3>
-            <div class="Pie_Chart_Container">
-            <canvas id="Pie_Chart" class="Animate_Pie_Chart" width="220" height="560"></canvas>
-            <ul id="Pie_Chart_"></ul>
-            </div>
-        </div>
+    <h3>Verdeling per Complex</h3>
+    <div class="Pie_Chart_Container">
+        <canvas id="Complex_Chart" class="Animate_Pie_Chart" width="220" height="560"></canvas>
+    </div>
+</div>
 
       </div>
     </div>

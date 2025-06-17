@@ -1,43 +1,37 @@
 <?php
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database credentials
-    $servername = "localhost"; // Database server
-    $username = "root";        // Database username
-    $password = "";            // Database password
-    $dbname = "volkstuinen";   // Database name
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "volkstuinen";
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Get form data
-    
-    $reason = $_POST['reason']; // Reason for request
+    $reason = $_POST['reason'];
+    $parcel = $_POST['parcel'];
+    $metres = $_POST['M2'];
 
-    // SQL query to insert the data into the 'requests' table
-    $sql = "INSERT INTO requests (Motive) VALUES (?)";
+    // Insert into 'requests' table – now with Motive, Parcel, and Metres
+    $sql = "INSERT INTO `parcel-requests` (Motive, Parcel, M2) VALUES (?, ?, ?)";
 
-    // Prepare and bind
     if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("s", $reason); // "ss" means both are strings
+        $stmt->bind_param("ssi", $reason, $parcel, $metres); // s = string, i = integer
         $stmt->execute();
         $stmt->close();
     } else {
         echo "Error: " . $conn->error;
     }
 
-    // Close the connection
     $conn->close();
 
-    // Redirect or display success message (optional)
-    echo "<p>Uw aanvraag is succesvol verstuurd!</p>";
+    header("Location: http://localhost/volkstuinen/Frontend/Formulier/Bedankt.php");
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -114,6 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conn->close();
           ?>
         </select>
+        <label for="M2">Aantal meters (meter(s)):</label>
+<input type="number" id="M2" name="M2" min="1" required>
 
         <label for="reason">Reden voor aanvraag:</label>
         <textarea id="reason" name="reason" rows="4" placeholder="Beschrijf uw reden voor deze aanvraag" required></textarea>
