@@ -54,6 +54,7 @@ checkSession($allowedUserTypes = [2]);
                 <th>Complex</th>
                 <th>m²</th>
                 <th>Email</th>
+                <th>Tuin nummer</th>
             </tr>
             </thead>
             <tbody>
@@ -62,7 +63,7 @@ checkSession($allowedUserTypes = [2]);
                 $conn = Database::GetConnection();
 
                 // Fetch members
-                $query = "SELECT Name, Complex, Email FROM users";
+                $query = "SELECT Name, Complex, Email, TuinNummer FROM users";
                 $stmt = $conn->query($query);
 
                 $firstRow = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -73,6 +74,7 @@ checkSession($allowedUserTypes = [2]);
                             <td>" . htmlspecialchars($firstRow["Complex"]) . "</td>
                             <td>?</td> <!-- m² data isn't in DB, so placeholder -->
                             <td>" . htmlspecialchars($firstRow["Email"]) . "</td>
+                            <td>" . htmlspecialchars($firstRow["TuinNummer"]) . "</td>
                         </tr>";
                     // Output the rest
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -81,6 +83,7 @@ checkSession($allowedUserTypes = [2]);
                                 <td>" . htmlspecialchars($row["Complex"]) . "</td>
                                 <td>?</td>
                                 <td>" . htmlspecialchars($row["Email"]) . "</td>
+                                <td>" . htmlspecialchars($row["TuinNummer"]) . "</td>
                             </tr>";
                         }
                     } else {
@@ -90,6 +93,7 @@ checkSession($allowedUserTypes = [2]);
                 ?>
 
             </tbody>
+
         </thead>
       </table>
     </div>
