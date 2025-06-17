@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__ . "/../../Backend/Models/User.php";
+
 checkSession($allowedUserTypes = [3]);
 
 $users = new User();
@@ -15,12 +16,16 @@ $usersResult = $users->findAllUsers();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volkstuin Vereniging Sittard</title>
     <link rel="stylesheet" href="CSS-Bestuurder/dashboard.css">
+    <!-- javascript library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- javascript link -->
     <script src="dashboard.js" defer></script>
 </head>
 <body>
+
+
 <div class="sidebar">
-    <img src="../../Frontend/Bestuurder/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
+    <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
     <div class="Icoontjes">
 
         <a href="dashboard.php">
@@ -28,7 +33,7 @@ $usersResult = $users->findAllUsers();
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>
         </a>
-        <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
+        <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
             <div class="icon2">
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
             </div>
@@ -61,27 +66,18 @@ $usersResult = $users->findAllUsers();
             </div>
         </div>
 
-        <!-- Modal voor Full View -->
-        <div class="modal" id="modal">
-            <div class="modal-content">
-                <span class="close-btn" id="close-btn">&times;</span>
-                <div id="modal-text">
-                    <h2 id="modal-title"></h2>
-                    <p id="modal-description"></p>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="grote-foto">
-            <img src="../../Frontend/Gedeeld/pictures/Slachthuis-800px.jpg" alt="tuin foto">
+            <img src="../../Frontend/Gedeeld/pictures/Slachthuis.jpg" alt="tuin foto">
         </div>
 
         <div class="stats-sectiie">
-
             <div class="stats-item">
+                <a href="Leden-beheer.php"></a>
                 <h3>Aantal Deelnemers In Complex</h3>
                 <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
-
+            </div>
                 <div class="stats-item1">
                     <h3>Grond In Gebruik</h3>
                     <div class="Pie_Chart_Container">

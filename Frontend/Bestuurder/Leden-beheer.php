@@ -96,42 +96,6 @@ checkSession($allowedUserTypes = [3]);
       </table>
     </div>
   </div>
-  <!-- Modal -->
-  <div id="modal" class="modal">
-      <div class="modal-content">
-          <h1 id="close-btn" class="close-btn">&times;</h1>
-          <div class="modal-header">
-              <h2>Volkstuin Vereniging Sittard</h2>
-          </div>
-          <div class="modal-body">
-              <div class="form-section">
-                  <div class="left-column">
-                      <label>Voornaam</label>
-                      <input type="text" id="voornaam" placeholder="Voornaam" disabled>
-                      <label>Achternaam</label>
-                      <input type="text" id="achternaam" placeholder="Achternaam" disabled>
-                      <label>E-mailadres</label>
-                      <input type="email" id="email" placeholder="E-mailadres" disabled>
-                      <label>Telefoonnummer</label>
-                      <input type="tel" id="telefoon" placeholder="Telefoonnummer" disabled>
-                      <label>Woonadres</label>
-                      <input type="text" id="straat" placeholder="Straatnaam" disabled>
-                      <div class="row">
-                          <input type="text" id="postcode" placeholder="Postcode" disabled>
-                          <input type="text" id="huisnummer" placeholder="Huisnummer" disabled>
-                      </div>
-                  </div>
-                  <div class="right-column">
-                      <label>Complex</label>
-                      <input type="text" id="complex-naam" placeholder="Complex Naam" disabled>
-                      <label>m²</label>
-                      <input type="text" id="complex-size" placeholder="?m²" disabled>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
   <!-- javascript link -->
   <script src="Leden-beheer.js"></script>
 </body>

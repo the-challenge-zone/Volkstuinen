@@ -4,9 +4,8 @@ require_once __DIR__ . "/../../Backend/Models/User.php";
 
 checkSession($allowedUserTypes = [2]);
 
-$secondary_SearchTerm = $_SESSION['user_complex'];
 $users = new User();
-$usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
+$usersResult = $users->findAllUsers();
         $counter = count($usersResult);
 
 ?>
@@ -34,7 +33,7 @@ $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
             <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
         </div>
     </a>
-    <a href="<?'$dashboardLink'?>">
+    <a href="../../Frontend/Beheerder/GebruikerInfo.php">
         <div class="icon2">
             <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
         </div>
@@ -75,7 +74,7 @@ $usersResult = $users->SearchUsers("Complex", $secondary_SearchTerm);
         <div class="stats-item">
             <a href="Leden-beheer.php">
           <h3>Aantal Deelnemers In Complex</h3></a>
-          <div class="number"><?php echo $counter?></div>
+          <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
       </div>
         <div class="stats-item1">
           <h3>Grond In Gebruik</h3>

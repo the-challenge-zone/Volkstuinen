@@ -12,7 +12,7 @@ $user->findByIdUser($id)
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Volkstuin Vereniging Sittard</title>
-    <link rel="stylesheet" href="CSS-Gedeeld/Gebruikerinfo.css">
+    <link rel="stylesheet" href="CSS-Beheerder/Gebruikerinfo.css">
     </head>
 <body>
 

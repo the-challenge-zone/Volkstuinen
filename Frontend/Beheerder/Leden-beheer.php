@@ -24,22 +24,12 @@ checkSession($allowedUserTypes = [2]);
                   <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
               </div>
           </a>
-          <?php 
-        if ($_SESSION['user_type'] == 3) {
-            echo '<a href="Leden-beheer.php">
+            <a href="../../Frontend/Beheerder/GebruikerInfo.php">
                 <div class="icon2">
-                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-                </div>
-            </a>';
-        } else {
-            echo '<a href="../../Frontend/Deelnemer/dashboard.php">
-                <div class="icon2">
-                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
-                </div>
-            </a>';
-        }
-        ?>
-          <a href="../../Frontend/login.php">
+                    <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="Gebruiker Info">
+                </div>  
+            </a>
+          <a href="../../Backend/logout.php">
               <div class="icon2">
                   <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="Uitloggen">
               </div>

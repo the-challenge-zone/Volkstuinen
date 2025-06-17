@@ -26,7 +26,7 @@ $user->findByIdUser($id)
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>
         </a>
-        <a href="../../Frontend/Gedeeld/GebruikerInfo.php">
+        <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
             <div class="icon2">
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
             </div>
