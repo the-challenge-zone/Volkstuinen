@@ -79,7 +79,7 @@ checkSession($allowedUserTypes = [2]);
                     <td>" . htmlspecialchars($row["Complex"]) . "</td>
                     <td>?</td> <!-- Placeholder for m² -->
                     <td>" . htmlspecialchars($row["Email"]) . "</td>
-                    <td>" . htmlspecialchars($row["TuinNummers"]) . "</td>
+                    <td>?</td> <!-- Placeholder for TuinNummers -->
                 </tr>";
             }
             } else {
