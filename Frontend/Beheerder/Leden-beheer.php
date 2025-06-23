@@ -67,6 +67,7 @@ checkSession($allowedUserTypes = [2]);
                 // Fetch members
                 $query = "SELECT Name, Complex, Email, GROUP_CONCAT(TuinNummer ORDER BY TuinNummer SEPARATOR ', ') AS TuinNummers 
                 FROM users 
+                WHERE Complex='1'
                 GROUP BY Name, Email, Complex";
                 $stmt = $conn->query($query);
 
