@@ -112,7 +112,7 @@ $conn = null;
                 <a href="Leden-beheer.php"></a>
                 <h3>Aantal Deelnemers In Complex</h3>
                 <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
-<<<<<<< Updated upstream
+
             </div>
                 <div class="stats-item1">
                     <h3>Grond In Gebruik</h3>
@@ -121,7 +121,7 @@ $conn = null;
                         <ul id="Pie_Chart_"></ul>
                     </div>
                 </div>
-=======
+
 
 <div class="stats-item1">
     <h3>Verdeling per Complex</h3>
@@ -129,7 +129,7 @@ $conn = null;
         <canvas id="Complex_Chart" class="Animate_Pie_Chart" width="220" height="560"></canvas>
     </div>
 </div>
->>>>>>> Stashed changes
+
 
             </div>
         </div>

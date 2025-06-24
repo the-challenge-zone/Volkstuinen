@@ -69,6 +69,11 @@ $conn = null;
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
             </div>
         </a>
+        <a href="wachtrij-beheer.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+            </div>
+        </a>
         <a href="../../Backend/logout.php">
             <div class="icon3">
                 
@@ -116,7 +121,7 @@ $conn = null;
 
             <div class="stats-item">
                 <h3>Aantal Deelnemers In Complex</h3>
-                <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
+                <div class="number"><a href="Beheerder/Leden-beheer.php"><?php echo $counter?></a></div>
 
 <div class="stats-item1">
     <h3>Verdeling per Complex</h3>
