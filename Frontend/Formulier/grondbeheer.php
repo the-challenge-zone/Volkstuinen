@@ -41,7 +41,7 @@
           <div class="table-container">
             <!-- Parcelen in Gebruik -->
             <div class="table">
-              <div class="table-header">Parcelen in Gebruik</div>
+              <div class="table-header">Percelen in Gebruik</div>
               <?php
 
               session_start();

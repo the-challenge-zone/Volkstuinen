@@ -27,14 +27,6 @@ $user->findByIdUser($id)
             </div>
         </a>
         <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
-<<<<<<< Updated upstream
-=======
-            <div class="icon2">
-                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
-            </div>
-        </a>
-        <a href="../../Frontend/Bestuurder/complex.php">
->>>>>>> Stashed changes
             <div class="icon2">
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
             </div>

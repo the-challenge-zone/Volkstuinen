@@ -85,7 +85,7 @@ $conn = null;
   </div>
 
 <div class="header">
-    VOLKSTUIN VERENING SITTARD
+    VOLKSTUIN VERENIGING SITTARD
 </div>
 <div class="main-container">
 
@@ -95,7 +95,7 @@ $conn = null;
 
         <!-- News Sectie (hier komen alle notificaties) -->
         <div class="news-sectie">
-            <h2 class="newstitle">News binnen complex</h2>
+            <h2 class="newstitle">Nieuws binnen complex</h2>
             <div class="notificaties" id="notificaties">
                 <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
                 <p>test</p>

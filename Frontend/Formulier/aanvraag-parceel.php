@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>Grond aanvragen</h1>
     <div class="form-container">
       <form action="" method="POST">
-        <label for="parcel">Parceel:</label>
+        <label for="parcel">Perceel:</label>
         <select id="parcel" name="parcel" required>
           <option value="" disabled selected>Selecteer een Perceel</option>
           <?php

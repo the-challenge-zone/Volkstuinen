@@ -64,7 +64,7 @@ if (isset($error)) {
     </div>
 
     <div class="header">
-        VOLKSTUIN VERENING SITTARD
+        VOLKSTUIN VERENIGING SITTARD
     </div>
 
 
@@ -90,7 +90,7 @@ if (isset($error)) {
         <input type="password" id="password" name="password" required>
 
         <a href="email-sender.php">Wachtwoord vergeten?</a>
-        <a href="register.php">Nieuwe account aanmaken</a>
+        <a href="register.php">Nieuw account aanmaken</a>
         <button type="submit">Login</button>
           <?php if (isset($error)) : ?>
               <div class="error-message"><?= htmlspecialchars($error) ?></div>
