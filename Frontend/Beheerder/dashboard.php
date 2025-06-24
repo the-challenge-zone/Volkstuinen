@@ -50,11 +50,7 @@ $conn = null;
             <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
         </div>
     </a>
-<<<<<<< Updated upstream
     <a href="../../Frontend/Beheerder/GebruikerInfo.php">
-=======
-    <a href="GebruikerInfo.php">
->>>>>>> Stashed changes
         <div class="icon2">
             <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
         </div>
@@ -75,6 +71,15 @@ $conn = null;
 
     <p class="Dashtitle"> Welkom Beheerder</p>
     <div class="content">
+
+    <!-- News Sectie (hier komen alle notificaties) -->
+        <div class="news-sectie">
+            <h2 class="newstitle">Nieuws binnen complex</h2>
+            <div class="notificaties" id="notificaties">
+                <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
+                <p>test</p>
+            </div>
+        </div>
 
         <!-- Modal voor Full View -->
         <div class="modal" id="modal">
