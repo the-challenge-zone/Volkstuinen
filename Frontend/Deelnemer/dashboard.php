@@ -66,16 +66,14 @@ $result = $conn->query($sql);
         </div>
       </div>
 
-      <div class="tuintje-gegevens">
-        <div class="uw-tuintje">Uw tuintje</div>
-
-
-        <div class="kosten"><p>Kosten</p></div>
-        <div class="line2"></div>
-        <div class="grond"><p>Grond</p></div>
-
-        
-        
+      <!-- News Sectie (hier komen alle notificaties) -->
+        <div class="news-sectie">
+            <h2 class="newstitle">News binnen complex</h2>
+            <div class="notificaties" id="notificaties">
+                <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
+                <p>test</p>
+            </div>
+        </div>
       </div>
     </div>
   </div>

@@ -55,14 +55,12 @@ $usersResult = $users->findAllUsers();
     <p class="Dashtitle"> Welkom Beheerder</p>
     <div class="content">
 
-        <!-- Modal voor Full View -->
-        <div class="modal" id="modal">
-            <div class="modal-content">
-                <span class="close-btn" id="close-btn">&times;</span>
-                <div id="modal-text">
-                    <h2 id="modal-title"></h2>
-                    <p id="modal-description"></p>
-                </div>
+       <!-- News Sectie (hier komen alle notificaties) -->
+        <div class="news-sectie">
+            <h2 class="newstitle">News binnen complex</h2>
+            <div class="notificaties" id="notificaties">
+                <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
+                <p>test</p>
             </div>
         </div>
 
