@@ -57,6 +57,7 @@ checkSession($allowedUserTypes = [2]);
                 <th>m²</th>
                 <th>Email</th>
                 <th>Tuin nummer</th>
+                <th>Telefoonnummer</th>
             </tr>
             </thead>
             <tbody>
@@ -65,7 +66,7 @@ checkSession($allowedUserTypes = [2]);
             $conn = Database::GetConnection();
 
                 // Fetch members
-                $query = "SELECT Name, Complex, Email, GROUP_CONCAT(TuinNummer ORDER BY TuinNummer SEPARATOR ', ') AS TuinNummers 
+                $query = "SELECT Name, Complex, Email, PhoneNumber, GROUP_CONCAT(TuinNummer ORDER BY TuinNummer SEPARATOR ', ') AS TuinNummers 
                 FROM users 
                 WHERE Complex='1'
                 GROUP BY Name, Email, Complex";
@@ -81,6 +82,7 @@ checkSession($allowedUserTypes = [2]);
                     <td>?</td> <!-- Placeholder for m² -->
                     <td>" . htmlspecialchars($row["Email"]) . "</td>
                     <td>?</td> <!-- Placeholder for TuinNummers -->
+                    <td>" . htmlspecialchars($row["PhoneNumber"]) . "</td>
                 </tr>";
             }
             } else {

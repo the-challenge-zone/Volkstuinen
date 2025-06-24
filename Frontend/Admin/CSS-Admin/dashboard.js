@@ -11,8 +11,7 @@ fetch('../../Backend/Chart_Data.php', {
         console.warn('No usage data available');
         return;
     }
-
-    const labels = Object.keys(data);
+const labels = Object.keys(data);
     const values = Object.values(data);
     const ctx = document.getElementById('Usage_Chart').getContext('2d');
 
@@ -45,8 +44,7 @@ fetch('../../Backend/Chart_Data.php', {
 .catch(error => {
     console.error('Error fetching usage chart data:', error);
 });
-
-
+    
 // ----------------------------
 // PIE CHART 2: COMPLEX CHART
 // ----------------------------

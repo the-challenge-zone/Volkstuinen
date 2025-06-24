@@ -1,41 +1,64 @@
 <?php
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Database credentials
-    $servername = "localhost"; // Database server
-    $username = "root";        // Database username
-    $password = "";            // Database password
-    $dbname = "volkstuinen";   // Database name
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "volkstuinen";
 
-    // Create connection
     $conn = new mysqli($servername, $username, $password, $dbname);
 
-    // Check connection
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Get form data
-    
-    $reason = $_POST['reason']; // Reason for request
+    $reason = $_POST['reason'];
+    $parcel = $_POST['parcel'];
+    $metres = $_POST['M2'];
 
-    // SQL query to insert the data into the 'requests' table
-    $sql = "INSERT INTO requests (Motive) VALUES (?)";
+    // Check available meters from the 'parcel_free' table
+    $checkSql = "SELECT `Size` FROM parcel_free WHERE Complex = ?";
+    $stmt = $conn->prepare($checkSql);
+    $stmt->bind_param("s", $parcel);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    // Prepare and bind
-    if ($stmt = $conn->prepare($sql)) {
-        $stmt->bind_param("s", $reason); // "ss" means both are strings
-        $stmt->execute();
-        $stmt->close();
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $available = $row['Size'];
+
+        if ($available >= $metres) {
+            // ✅ Enough meters available — insert into 'parcel-requests' table
+            $insertSql = "INSERT INTO `parcel-requests` (Motive, Parcel, M2) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($insertSql);
+            $stmt->bind_param("ssi", $reason, $parcel, $metres);
+            $stmt->execute();
+
+            // Update available meters in 'parcel_free'
+            $newAvailable = $available - $metres;
+            $updateSql = "UPDATE parcel_free SET `Size` = ? WHERE Complex = ?";
+            $stmt = $conn->prepare($updateSql);
+            $stmt->bind_param("is", $newAvailable, $parcel);
+            $stmt->execute();
+
+            echo "<p>Uw aanvraag voor $metres m² is succesvol verstuurd.</p>";
+        } else {
+            // ❌ Not enough meters — insert into 'waiting_list' table
+            $waitSql = "INSERT INTO waiting_list (Parcel, requested_meters, Motive) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($waitSql);
+            $stmt->bind_param("sis", $parcel, $metres, $reason);
+            $stmt->execute();
+
+            echo "<p>Niet genoeg ruimte op dit perceel. U bent op de wachtlijst geplaatst.</p>";
+        }
     } else {
-        echo "Error: " . $conn->error;
+        echo "<p>Perceel niet gevonden.</p>";
     }
 
-    // Close the connection
+    $stmt->close();
     $conn->close();
 
-    // Redirect or display success message (optional)
-    echo "<p>Uw aanvraag is succesvol verstuurd!</p>";
+    // Redirect to thank you page
+    header("Location: http://localhost/volkstuinen/Frontend/Formulier/Bedankt.php");
     exit;
 }
 ?>
@@ -72,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   </div>
 
-  <div class="header">VOLKSTUIN VERENING SITTARD</div>
+  <div class="header">VOLKSTUIN VERENIGING SITTARD</div>
 
   <div class="content">
     <h1>Grond aanvragen</h1>
@@ -83,26 +106,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <option value="" disabled selected>Selecteer een Perceel</option>
           <?php
             // Connect to the database
-            $servername = "localhost"; // Database server
-            $username = "root";        // Database username
-            $password = "";            // Database password
-            $dbname = "volkstuinen";  // Database name
+            $conn = new mysqli("localhost", "root", "", "volkstuinen");
 
-            // Create connection
-            $conn = new mysqli($servername, $username, $password, $dbname);
-
-            // Check connection
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             }
 
-            // Fetch Complex data from 'parcel-free' table
+            // Fetch Complex data from 'parcel_free' table
             $sql = "SELECT * FROM parcel_free";
             $result = $conn->query($sql);
 
-            // Check if there are results
             if ($result->num_rows > 0) {
-                // Output data for each row
                 while ($row = $result->fetch_assoc()) {
                     echo '<option value="' . $row['Complex'] . '">' . $row['Complex'] . '</option>';
                 }
@@ -110,16 +124,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 echo '<option value="">Geen beschikbare percelen</option>';
             }
 
-            // Close the connection
             $conn->close();
           ?>
         </select>
+
+        <label for="M2">Aantal meters (meter(s)):</label>
+        <input type="number" id="M2" name="M2" min="1" required>
 
         <label for="reason">Reden voor aanvraag:</label>
         <textarea id="reason" name="reason" rows="4" placeholder="Beschrijf uw reden voor deze aanvraag" required></textarea>
 
         <button type="submit">Verstuur aanvraag</button>
-        </center>
       </form>
     </div>
   </div>

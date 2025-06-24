@@ -1,61 +1,90 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch('../../Backend/Chart_Data.php', {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json'
+fetch('../../Backend/Chart_Data.php', {
+    method: 'GET',
+    credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => response.json())
+.then(data => {
+    if (data.error || Object.keys(data).length === 0) {
+        console.warn('No usage data available');
+        return;
+    }
+
+    const labels = Object.keys(data);
+    const values = Object.values(data);
+    const ctx = document.getElementById('Usage_Chart').getContext('2d');
+
+             new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: values,
+                backgroundColor: [
+                    'rgba(0, 102, 0, 1)',
+                    'rgba(153, 255, 153, 1)'
+                ],
+                borderColor: [
+                    'rgba(0, 102, 0, 0)',
+                    'rgba(153, 255, 153, 0)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: { enabled: true }
+            }
         }
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error('Error:', data.error);
-                return;
-            }
+    });
+})
+.catch(error => {
+    console.error('Error fetching usage chart data:', error);
+});
 
-            if (Object.keys(data).length === 0) {
-                // Handle case when there is no data
-                console.log('No chart data available');
-                return;
-            }
 
-            const labels = Object.keys(data);
-            const values = Object.values(data);
+// ----------------------------
+// PIE CHART 2: COMPLEX CHART
+// ----------------------------
+window.addEventListener('DOMContentLoaded', () => {
+    console.log('complexChartData:', complexChartData);
 
-            const ctx = document.getElementById('Pie_Chart').getContext('2d');
-            new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: [
-                            'rgba(44, 96, 56, 1)',
-                            'rgba(40, 167, 69, 1)'
-                        ],
-                        borderColor: [
-                            'rgba(44, 96, 56, 1)',
-                            'rgba(40, 167, 69, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                        },
-                        tooltip: {
-                            enabled: true
-                        }
-                    }
+    if (typeof complexChartData !== 'undefined' && complexChartData.length > 0) {
+        const labels = complexChartData.map(item => item.name);
+        const data = complexChartData.map(item => item.size);
+        const ctx = document.getElementById('Complex_Chart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Grondverdeling (m²)',
+                    data: data,
+                    backgroundColor: [
+                        '#003300','#004D00','#006600','#008000','#009900','#00B300','#00CC00','#00E600','#00FF00','#33FF33','#66FF66','#99FF99'
+                    ],
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'right' },
+                    tooltip: { enabled: true }
                 }
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching chart data:', error);
+            }
         });
+    } else {
+        console.warn('complexChartData is undefined or empty');
+    }
+});
     const notificaties = document.getElementById("notificaties");
 
 

@@ -7,6 +7,22 @@ checkSession($allowedUserTypes = [3]);
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
+        // Fetch complex sizes from parcel_free
+require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
+$conn = Database::GetConnection();
+
+$query = "SELECT Complex, SUM(Size) AS TotalSize FROM parcel_free GROUP BY Complex";
+$stmt = $conn->query($query);
+
+$complexData = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $complexData[] = [
+        'name' => $row['Complex'],
+        'size' => (int)$row['TotalSize']
+    ];
+}
+
+$conn = null;
 
 ?>
 <!DOCTYPE html>
@@ -21,6 +37,7 @@ $usersResult = $users->findAllUsers();
     <!-- javascript link -->
     <script src="dashboard.js" defer></script>
 </head>
+
 <body>
 
 
@@ -38,6 +55,11 @@ $usersResult = $users->findAllUsers();
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
             </div>
         </a>
+        <a href="../../Frontend/Bestuurder/complex.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="gebruikerinfo">
+            </div>
+        </a>
         <a href="../../Backend/logout.php">
             <div class="icon3">
                 
@@ -49,7 +71,7 @@ $usersResult = $users->findAllUsers();
   </div>
 
 <div class="header">
-    VOLKSTUIN VERENING SITTARD
+    VOLKSTUIN VERENIGING SITTARD
 </div>
 <div class="main-container">
 
@@ -59,7 +81,7 @@ $usersResult = $users->findAllUsers();
 
         <!-- News Sectie (hier komen alle notificaties) -->
         <div class="news-sectie">
-            <h2 class="newstitle">News binnen complex</h2>
+            <h2 class="newstitle">Nieuws binnen complex</h2>
             <div class="notificaties" id="notificaties">
                 <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
                 <p>test</p>
@@ -77,6 +99,7 @@ $usersResult = $users->findAllUsers();
                 <a href="Leden-beheer.php"></a>
                 <h3>Aantal Deelnemers In Complex</h3>
                 <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
+
             </div>
                 <div class="stats-item1">
                     <h3>Grond In Gebruik</h3>
@@ -86,7 +109,22 @@ $usersResult = $users->findAllUsers();
                     </div>
                 </div>
 
+
+<div class="stats-item1">
+    <h3>Verdeling per Complex</h3>
+    <div class="Pie_Chart_Container">
+        <canvas id="Complex_Chart" class="Animate_Pie_Chart" width="220" height="560"></canvas>
+    </div>
+</div>
+
+
             </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
         </div>
 
     </div>

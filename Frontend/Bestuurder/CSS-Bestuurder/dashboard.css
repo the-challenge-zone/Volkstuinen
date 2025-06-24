@@ -306,3 +306,18 @@ a:active {
 #add-notification-btn:hover {
   background-color: #44474a;
 }
+
+.chart-link-button {
+    margin-top: 10px;
+    padding: 6px 10px;
+    font-size: 0.9em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chart-link-button:hover {
+    background-color: #45a049;
+}

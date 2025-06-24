@@ -110,6 +110,38 @@ a:active {
   background-color: #2e2f32;
 }
 
+.news-sectie, .grote-foto, .stats-section {
+  background-color: #393b3f;
+  border-radius: 10px;
+  padding: 15px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+.news-sectie {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  padding-left: 10px;
+  max-height: 500px;
+}
+
+.newstitle {
+  background-color: #2e2f32;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-bottom: 10px; /* Ruimte tussen de titel en de notificaties */
+}
+
 .notificaties {
   display: flex;
   flex-direction: column;
@@ -122,6 +154,18 @@ background-color: #333538;
 padding: 10px;
 border-radius: 5px;
 margin: 0 10px; 
+}
+
+.news-sectie::-webkit-scrollbar {
+  width: 10px;
+}
+
+.news-sectie::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.news-sectie::-webkit-scrollbar-thumb {
+  background-color: transparent;
 }
 
 .grote-foto {
@@ -160,7 +204,7 @@ margin: 0 10px;
   border-radius: 5px;
   text-align: center;
   margin-top: 50px;
-  height: 300px;
+  height: 600px;
   width: 400px;
 }
 
@@ -186,6 +230,12 @@ margin: 0 10px;
   color: white;
   font-size: 20px;
   margin-top: 20px;
+}
+.Animate_Pie_Chart {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
 }
 
 /* Modal Background */

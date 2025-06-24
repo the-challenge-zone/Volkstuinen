@@ -7,7 +7,21 @@ checkSession($allowedUserTypes = [2]);
 $users = new User();
 $usersResult = $users->findAllUsers();
         $counter = count($usersResult);
+require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
+$conn = Database::GetConnection();
 
+$query = "SELECT Complex, SUM(Size) AS TotalSize FROM parcel_free GROUP BY Complex";
+$stmt = $conn->query($query);
+
+$complexData = [];
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $complexData[] = [
+        'name' => $row['Complex'],
+        'size' => (int)$row['TotalSize']
+    ];
+}
+
+$conn = null;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +29,9 @@ $usersResult = $users->findAllUsers();
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Volkstuin Vereniging Sittard</title>
+  <script>
+    const complexChartData = <?php echo json_encode($complexData); ?>;
+</script>
   <link rel="stylesheet" href="CSS-Beheerder/dashboard.css">
     <!-- javascript library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -55,6 +72,15 @@ $usersResult = $users->findAllUsers();
     <p class="Dashtitle"> Welkom Beheerder</p>
     <div class="content">
 
+    <!-- News Sectie (hier komen alle notificaties) -->
+        <div class="news-sectie">
+            <h2 class="newstitle">Nieuws binnen complex</h2>
+            <div class="notificaties" id="notificaties">
+                <!-- komen hier te staan als je een stuurt, dus als je iets wilt aanpassen moet dat met deze class -->
+                <p>test</p>
+            </div>
+        </div>
+
         <!-- Modal voor Full View -->
         <div class="modal" id="modal">
             <div class="modal-content">
@@ -70,18 +96,17 @@ $usersResult = $users->findAllUsers();
         <img src="../../Frontend\Gedeeld\pictures\Slachthuis.jpg" alt="tuin foto">
       </div>
 
-      <div class="stats-sectiie">
+      <div class="stats-sectie">
         <div class="stats-item">
           <h3>Aantal Deelnemers In Complex</h3></a>
           <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
       </div>
         <div class="stats-item1">
-          <h3>Grond In Gebruik</h3>
-            <div class="Pie_Chart_Container">
-            <canvas id="Pie_Chart" class="Animate_Pie_Chart" width="220" height="560"></canvas>
-            <ul id="Pie_Chart_"></ul>
-            </div>
-        </div>
+    <h3>Verdeling per Complex</h3>
+    <div class="Pie_Chart_Container">
+        <canvas id="Complex_Chart" class="Animate_Pie_Chart" width="220" height="560"></canvas>
+    </div>
+</div>
 
       </div>
     </div>
