@@ -93,7 +93,6 @@ $conn = null;
 
       <div class="stats-sectie">
         <div class="stats-item">
-            <a href="Leden-beheer.php">
           <h3>Aantal Deelnemers In Complex</h3></a>
           <div class="number"><a href="Leden-beheer.php"><?php echo $counter?></a></div>
       </div>
