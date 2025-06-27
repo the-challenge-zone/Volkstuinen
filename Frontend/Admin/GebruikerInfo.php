@@ -2,10 +2,28 @@
 session_start();
 require_once '../../Backend/DatabaseContext/Database.php';
 
-if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'beheerder', 'bestuurder'])) {
+if (empty($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+try {
+    $pdo = Database::GetConnection();
+
+    $stmt = $pdo->prepare("SELECT UserType FROM users WHERE Id = ?");
+    $stmt->execute([ (int)$_SESSION['user_id'] ]);
+    $userType = $stmt->fetchColumn();
+
+    if (!$userType || !in_array((int)$userType, [4])) {
+        header("Location: login.php");
+        exit();
+    }
+} catch (Exception $e) {
+    // Optional: log error $e->getMessage()
+    header("Location: login.php");
+    exit();
+}
+
 
 $pdo = Database::GetConnection();
 $user_id = $_SESSION['user_id'];

@@ -2,8 +2,24 @@
 session_start();
 include '..\..\Backend\DatabaseContext\Database.php';
 
-// Check for login session
-if (!isset($_SESSION['user_id'])) {
+if (empty($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+try {
+    $pdo = Database::GetConnection();
+
+    $stmt = $pdo->prepare("SELECT UserType FROM users WHERE Id = ?");
+    $stmt->execute([ (int)$_SESSION['user_id'] ]);
+    $userType = $stmt->fetchColumn();
+
+    if (!$userType || !in_array((int)$userType, [4])) {
+        header("Location: login.php");
+        exit();
+    }
+} catch (Exception $e) {
+    // Optional: log error $e->getMessage()
     header("Location: login.php");
     exit();
 }
@@ -38,6 +54,7 @@ $naam = htmlspecialchars($user['Name'] ?? $user['Email']);
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- javascript link -->
     <script src="dashboard.js" defer></script>
+
 </head>
 <body>
     <div class="sidebar">
@@ -49,7 +66,7 @@ $naam = htmlspecialchars($user['Name'] ?? $user['Email']);
                 <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
             </div>
         </a>
-        <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
+        <a href="../../Frontend/Admin/GebruikerInfo.php">
             <div class="icon2">
                 <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
             </div>
@@ -68,7 +85,7 @@ $naam = htmlspecialchars($user['Name'] ?? $user['Email']);
     <div class="container">
         <div class="menu">
             <h4 style="color: #fff; text-align:center;">Menu</h4>
-            <?php if ($role == 'admin' || $role == 'beheerder') { ?>
+            <?php if ($role == 'admin') { ?>
                 <a href="aanvragenbeheer.php"><i class="fas fa-file-alt"></i> Aanvragenbeheer</a>
                 <a href="ledenbeheer.php"><i class="fas fa-users"></i> Ledenbeheer</a>
                 <a href="pending_wijzigingen_beheer.php"><i class="fas fa-user-edit"></i> Beheer Wijzigingen</a>
@@ -76,7 +93,7 @@ $naam = htmlspecialchars($user['Name'] ?? $user['Email']);
             <?php } ?><?php if ($role == 'deelnemer') { ?>
                 <a href="aanvragen.php"><i class="fas fa-plus-circle"></i> Aanvraag Volkstuin</a>
                 <a href="persoonsgegevens.php"><i class="fas fa-user"></i> Mijn Persoonsgegevens</a>
-                <a href="dashboard_deelnemer.php"><i class="fas fa-info-circle"></i> Mijn Aanvraag Status</a>
+                <a href="dashboard.php"><i class="fas fa-info-circle"></i> Mijn Aanvraag Status</a>
             <?php } ?>
 
         </div>
@@ -85,7 +102,7 @@ $naam = htmlspecialchars($user['Name'] ?? $user['Email']);
             <p>Je bent ingelogd als: <strong><?php echo ucfirst($role); ?></strong></p>
             <p>Selecteer een menuoptie aan de linkerkant om verder te gaan.</p>
 
-            <?php if (in_array($role, ['admin', 'beheerder', 'bestuurder'])) { ?>
+            <?php if (in_array($role, ['admin'])) { ?>
                 <a href="mijn_gebruikersgegevens.php" class="btn btn-warning mt-3">
                     <i class="fas fa-user-cog"></i> Mijn Gegevens Aanpassen
                 </a>

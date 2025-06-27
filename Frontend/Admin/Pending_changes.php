@@ -2,20 +2,40 @@
 session_start();
 require_once '../../Backend/DatabaseContext/Database.php';
 
-if (!isset($_SESSION['user_id']) || !in_array($_SESSION['role'], ['admin', 'beheerder'])) {
+
+
+if (empty($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
 
+try {
+    $pdo = Database::GetConnection();
+
+    $stmt = $pdo->prepare("SELECT UserType FROM users WHERE Id = ?");
+    $stmt->execute([ (int)$_SESSION['user_id'] ]);
+    $userType = $stmt->fetchColumn();
+
+    if (!$userType || !in_array((int)$userType, [4])) {
+        header("Location: login.php");
+        exit();
+    }
+} catch (Exception $e) {
+    // Optional: log error $e->getMessage()
+    header("Location: login.php");
+    exit();
+}
+
+
 $pdo = Database::GetConnection();
 
 // Goedkeuren of afwijzen
-if ($_SESSION['role'] === 'admin' && isset($_GET['id'], $_GET['actie'])) {
+if ($_SESSION['user_type'] === 'admin' && isset($_GET['id'], $_GET['actie'])) {
     $id = $_GET['id'];
     $actie = $_GET['actie'];
 
     if ($actie === 'goedkeuren') {
-        $stmt = $pdo->prepare("SELECT * FROM aanvragen_wijzigingen WHERE id = :id");
+        $stmt = $pdo->prepare("SELECT * FROM pending_changes WHERE id = :id");
         $stmt->execute([':id' => $id]);
         $wijziging = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -52,7 +72,7 @@ if ($_SESSION['role'] === 'admin' && isset($_GET['id'], $_GET['actie'])) {
 // Ophalen pending wijzigingen
 $stmt = $pdo->prepare("
     SELECT w.id, u.email, w.nieuw_email, w.nieuw_naam, w.nieuw_adres, w.nieuw_telefoon, w.datum, w.status
-    FROM aanvragen_wijzigingen w
+    FROM pending_changes w
     JOIN users u ON w.user_id = u.id
     WHERE w.status = 'in behandeling'
 ");
@@ -151,7 +171,7 @@ $wijzigingen = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <th>Nieuwe Adres</th>
                     <th>Nieuwe Telefoon</th>
                     <th>Datum</th>
-                    <?php if ($_SESSION['role'] === 'admin') echo "<th>Acties</th>"; ?>
+                    <?php if ($_SESSION['user_type'] === 'admin') echo "<th>Acties</th>"; ?>
                 </tr>
             </thead>
             <tbody>
@@ -166,7 +186,7 @@ $wijzigingen = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <td><?= htmlspecialchars($row['nieuw_adres']) ?></td>
                             <td><?= htmlspecialchars($row['nieuw_telefoon']) ?></td>
                             <td><?= htmlspecialchars($row['datum']) ?></td>
-                            <?php if ($_SESSION['role'] === 'admin'): ?>
+                            <?php if ($_SESSION['user_type'] === 'admin'): ?>
                                 <td>
                                     <a href="?id=<?= $row['id'] ?>&actie=goedkeuren" class="btn btn-success btn-sm">Goedkeuren</a>
                                     <a href="?id=<?= $row['id'] ?>&actie=afwijzen" class="btn btn-danger btn-sm">Afwijzen</a>
