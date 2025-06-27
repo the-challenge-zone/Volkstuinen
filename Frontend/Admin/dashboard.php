@@ -9,74 +9,61 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$role = $_SESSION['role'] ?? null; // Avoid undefined index warning
+$role = $_SESSION['user_type'] ?? null; // Avoid undefined index warning
 
 // Get PDO connection
 $conn = Database::GetConnection();
 
-// Haal gebruikersgegevens op met prepared statement (veilig tegen SQL injection)
-$sql = "SELECT u.email, u.Usertype, l.naam 
-        FROM users u 
-        LEFT JOIN leden l ON u.id = l.user_id 
-        WHERE u.id = :user_id";
+// Corrected query - no join needed
+$sql = "SELECT Email, Usertype, Name FROM users WHERE id = :user_id";
 
 $stmt = $conn->prepare($sql);
 $stmt->execute(['user_id' => $user_id]);
 $user = $stmt->fetch();
 
 // Fallback to email if naam is not set
-$naam = htmlspecialchars($user['naam'] ?? $user['email']);
+$naam = htmlspecialchars($user['Name'] ?? $user['Email']);
 ?>
+
 
 
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    
     <meta charset="UTF-8">
-    <title>Dashboard - VTV</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        body { background-color: #2e2e2e; color: white; margin: 0; }
-        .header { background-color: #7cb342; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; }
-        .container { display: flex; height: 100vh; }
-        .menu {
-            width: 220px;
-            background-color: #3e3e3e;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .menu a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 15px;
-            background-color: #7cb342;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            text-align: center;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .menu a i { margin-right: 8px; }
-        .menu a:hover {
-            background-color: #689f38;
-            transform: scale(1.05);
-        }
-        .content { flex-grow: 1; padding: 30px; overflow-y: auto; }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volkstuin Vereniging Sittard</title>
+    <link rel="stylesheet" href="CSS-Admin/dashboard.css">
+    <!-- javascript library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- javascript link -->
+    <script src="dashboard.js" defer></script>
 </head>
 <body>
-    <?php var_dump($role); ?>
+    <div class="sidebar">
+    <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
+    <div class="Icoontjes">
+
+        <a href="dashboard.php">
+            <div class="icon1">
+                <img src="../Gedeeld/pictures/HomeMenuButton.svg" alt="huisknop">
+            </div>
+        </a>
+        <a href="../../Frontend/Bestuurder/GebruikerInfo.php">
+            <div class="icon2">
+                <img src="../Gedeeld/pictures/UserMenuButton.svg" alt="settings">
+            </div>
+        </a>
+        <a href="../../Backend/logout.php">
+            <div class="icon3">
+                
+                <img src="../Gedeeld/pictures/ExitMenuButton.svg" alt="uitloggen">
+            </div>
+        </a>
+    </div>
+
+  </div>
+    
     <div class="header">VOLKSTUIN VERENIGING SITTARD</div>
     <div class="container">
         <div class="menu">
@@ -92,7 +79,6 @@ $naam = htmlspecialchars($user['naam'] ?? $user['email']);
                 <a href="dashboard_deelnemer.php"><i class="fas fa-info-circle"></i> Mijn Aanvraag Status</a>
             <?php } ?>
 
-            <a href="logout.php" style="background-color: #d32f2f;"><i class="fas fa-sign-out-alt"></i> Uitloggen</a>
         </div>
         <div class="content">
             <h2>Welkom terug, <?php echo $naam; ?> 👋</h2>
@@ -108,24 +94,27 @@ $naam = htmlspecialchars($user['naam'] ?? $user['email']);
             <hr class="my-4">
 
             <?php
-            $result = $conn->query("SELECT * FROM mededelingen ORDER BY datum DESC LIMIT 5");
-            if ($result->num_rows > 0): ?>
-                <h4>📢 Mededelingen</h4>
-                <?php while($row = $result->fetch_assoc()): ?>
-                    <div style="background:#444; padding:15px; margin-bottom:15px; border-left: 5px solid #7cb342; border-radius:8px;">
-                        <strong style="font-size: 18px;"><?php echo htmlspecialchars($row['titel']); ?></strong><br>
-                        <small class="text-muted"><?php echo date("d-m-Y H:i", strtotime($row['datum'])); ?></small>
-                        <p class="mt-2 mb-0"><?php echo nl2br(htmlspecialchars($row['inhoud'])); ?></p>
+                $stmt = $conn->query("SELECT * FROM mededelingen ORDER BY datum DESC LIMIT 5");
+                $mededelingen = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                if (count($mededelingen) > 0): ?>
+                    <h4>📢 Mededelingen</h4>
+                    <?php foreach ($mededelingen as $row): ?>
+                        <div style="background:#444; padding:15px; margin-bottom:15px; border-left: 5px solid #7cb342; border-radius:8px;">
+                            <strong style="font-size: 18px;"><?php echo htmlspecialchars($row['titel']); ?></strong><br>
+                            <small class="text-muted"><?php echo date("d-m-Y H:i", strtotime($row['datum'])); ?></small>
+                            <p class="mt-2 mb-0"><?php echo nl2br(htmlspecialchars($row['inhoud'])); ?></p>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div style="text-align:center; margin-top:40px;">
+                        <div style="font-size:50px; animation:bounce 1s infinite;">📭</div>
+                        <p style="color: #aaa; font-size: 18px; margin-top: 10px;">
+                            Er zijn momenteel geen mededelingen.
+                        </p>
                     </div>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <div style="text-align:center; margin-top:40px;">
-                    <div style="font-size:50px; animation:bounce 1s infinite;">📭</div>
-                    <p style="color: #aaa; font-size: 18px; margin-top: 10px;">
-                        Er zijn momenteel geen mededelingen.
-                    </p>
-                </div>
-            <?php endif; ?>
+                <?php endif; ?>
+
         </div>
     </div>
 </body>

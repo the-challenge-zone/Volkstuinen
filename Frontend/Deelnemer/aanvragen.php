@@ -1,6 +1,8 @@
 <?php
-session_start(); // Make sure session is started
-require_once "../../Backend/DatabaseContext/Database.php"; // Include the database connection class
+session_start(); // Zorg dat sessie gestart is
+require_once "../../Backend/DatabaseContext/Database.php"; // Laad de databaseclass
+
+$success = false;
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $pdo = Database::GetConnection();
@@ -36,12 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Voor het laden van complexen
+// Laad alle complexen één keer als array
 try {
     $pdo = Database::GetConnection();
-    $complexen = $pdo->query("SELECT id, name FROM complexes")->fetchAll();
+    $complexen = $pdo->query("SELECT id, name FROM complexes")->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "<div style='text-align: center; color: red;'>Fout bij ophalen van complexen: " . htmlspecialchars($e->getMessage()) . "</div>";
+    $complexen = [];
 }
 ?>
 
@@ -51,38 +54,53 @@ try {
     <meta charset="UTF-8">
     <title>Aanvraag Volkstuin - VTV</title>
 </head>
+<body>
 
 <div class="header">VOLKSTUIN VERENIGING SITTARD</div>
-    <div class="form-container">
-        <div class="form-box">
-            <h3>Aanvraagformulier Volkstuin</h3>
-            <form method="post">
-                <div class="mb-3">
-                    <label class="form-label">Voorkeurscomplex *</label>
-                    <select name="complex_id" class="form-control" required>
-                        <option value="">-- Kies een complex --</option>
-                        <?php while ($row = $complexen->fetch_assoc()) {
-                            echo "<option value='{$row['id']}'>{$row['naam']}</option>";
-                        } ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Tweede keuze complex (optioneel)</label>
-                    <select name="tweede_keuze_id" class="form-control">
-                        <option value="">-- Kies een tweede complex --</option>
-                        <?php
-                        $complexen->data_seek(0);
-                        while ($row = $complexen->fetch_assoc()) {
-                            echo "<option value='{$row['id']}'>{$row['naam']}</option>";
-                        } ?>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Motivatie</label>
-                    <textarea name="motivatie" class="form-control" rows="4" placeholder="Waarom wilt u een volkstuin?"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success w-100">Verzend aanvraag</button>
-            </form>
-            <a href="dashboard.php" class="terug-btn">← Terug naar Dashboard</a>
-        </div>
+<div class="form-container">
+    <div class="form-box">
+        <h3>Aanvraagformulier Volkstuin</h3>
+
+        <?php if ($success): ?>
+            <div style="text-align: center; color: green;">Aanvraag succesvol verzonden!</div>
+        <?php endif; ?>
+
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Voorkeurscomplex *</label>
+                <select name="complex_id" class="form-control" required>
+                    <option value="">-- Kies een complex --</option>
+                    <?php foreach ($complexen as $row): ?>
+                        <option value="<?= htmlspecialchars($row['id']) ?>">
+                            <?= htmlspecialchars($row['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tweede keuze complex (optioneel)</label>
+                <select name="tweede_keuze_id" class="form-control">
+                    <option value="">-- Kies een tweede complex --</option>
+                    <?php foreach ($complexen as $row): ?>
+                        <option value="<?= htmlspecialchars($row['id']) ?>">
+                            <?= htmlspecialchars($row['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Motivatie</label>
+                <textarea name="motivatie" class="form-control" rows="4" placeholder="Waarom wilt u een volkstuin?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Verzend aanvraag</button>
+        </form>
+
+        <a href="dashboard.php" class="terug-btn">← Terug naar Dashboard</a>
     </div>
+</div>
+
+</body>
+</html>

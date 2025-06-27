@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 17 mrt 2025 om 14:17
--- Serverversie: 10.4.32-MariaDB
--- PHP-versie: 8.2.12
+-- Generation Time: Jun 27, 2025 at 01:08 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `complexes`
+-- Table structure for table `aanvragen`
+--
+
+CREATE TABLE `aanvragen` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `complex_id` int(11) DEFAULT NULL,
+  `datum` datetime DEFAULT NULL,
+  `status` enum('nieuw','goedgekeurd','afgewezen') DEFAULT 'nieuw',
+  `opmerking` text DEFAULT NULL,
+  `tweede_keuze_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `aanvragen`
+--
+
+INSERT INTO `aanvragen` (`id`, `user_id`, `complex_id`, `datum`, `status`, `opmerking`, `tweede_keuze_id`) VALUES
+(0, 31, 7, '2025-06-27 11:01:23', 'nieuw', 'omdat nouaman lui is', 7);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `complexes`
 --
 
 CREATE TABLE `complexes` (
@@ -33,7 +56,7 @@ CREATE TABLE `complexes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `complexes`
+-- Dumping data for table `complexes`
 --
 
 INSERT INTO `complexes` (`Id`, `Name`) VALUES
@@ -53,7 +76,20 @@ INSERT INTO `complexes` (`Id`, `Name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `messages`
+-- Table structure for table `mededelingen`
+--
+
+CREATE TABLE `mededelingen` (
+  `id` int(11) NOT NULL,
+  `titel` varchar(255) DEFAULT NULL,
+  `inhoud` text DEFAULT NULL,
+  `datum` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `messages`
 --
 
 CREATE TABLE `messages` (
@@ -69,7 +105,7 @@ CREATE TABLE `messages` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `parcel`
+-- Table structure for table `parcel`
 --
 
 CREATE TABLE `parcel` (
@@ -78,21 +114,13 @@ CREATE TABLE `parcel` (
   `Size` int(11) NOT NULL,
   `Complex` int(11) NOT NULL,
   `User` int(11) DEFAULT NULL,
-  `Price` int(100) DEFAULT NULL,
-  `user_id` int(11) NOT NULL
+  `Price` int(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Gegevens worden geëxporteerd voor tabel `parcel`
---
-
-INSERT INTO `parcel` (`Id`, `Name`, `Size`, `Complex`, `User`, `Price`, `user_id`) VALUES
-(1, 'marc dober', 7, 3, 3, 50, 0);
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `parcel-request`
+-- Table structure for table `parcel-request`
 --
 
 CREATE TABLE `parcel-request` (
@@ -105,7 +133,30 @@ CREATE TABLE `parcel-request` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `parcel_free`
+-- Table structure for table `parcel-requests`
+--
+
+CREATE TABLE `parcel-requests` (
+  `id` int(250) NOT NULL,
+  `Parcel` varchar(250) NOT NULL,
+  `M2` int(10) NOT NULL,
+  `Motive` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `parcel-requests`
+--
+
+INSERT INTO `parcel-requests` (`id`, `Parcel`, `M2`, `Motive`) VALUES
+(0, 'Slachthuis', 5, 'Because het is mogelijk'),
+(0, 'Baandert 1', 3, 'Saus'),
+(0, 'Baandert 1', 3, 'Saus'),
+(0, 'Baandert 1', 3, 'Saus');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `parcel_free`
 --
 
 CREATE TABLE `parcel_free` (
@@ -115,7 +166,7 @@ CREATE TABLE `parcel_free` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `parcel_free`
+-- Dumping data for table `parcel_free`
 --
 
 INSERT INTO `parcel_free` (`id`, `Size`, `Complex`) VALUES
@@ -129,13 +180,30 @@ INSERT INTO `parcel_free` (`id`, `Size`, `Complex`) VALUES
 (8, 22, 'Slachthuis'),
 (9, 10, 'Overhoven'),
 (10, 44, 'Braokerhofke'),
-(11, 50, 'Den Haof'),
+(11, 25, 'Den Haof'),
 (12, 37, 'Wehrer Beemd');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `requests`
+-- Table structure for table `pending_changes`
+--
+
+CREATE TABLE `pending_changes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `nieuw_email` varchar(100) NOT NULL,
+  `nieuw_naam` varchar(100) NOT NULL,
+  `nieuw_adres` varchar(255) NOT NULL,
+  `nieuw_telefoon` varchar(20) NOT NULL,
+  `status` enum('in behandeling','goedgekeurd','afgewezen') NOT NULL,
+  `datum` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requests`
 --
 
 CREATE TABLE `requests` (
@@ -153,7 +221,7 @@ CREATE TABLE `requests` (
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -166,39 +234,56 @@ CREATE TABLE `users` (
   `Address` varchar(255) DEFAULT NULL,
   `Complex` int(11) DEFAULT NULL,
   `UserType` int(3) DEFAULT 1,
-  `Membership` tinyint(1) DEFAULT 0,
-  `Payment` tinyint(1) DEFAULT 0,
-  `user_id` int(100) DEFAULT NULL,
-  `identifier` varchar(255) NOT NULL
+  `TuinNummer` varchar(50) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Gegevens worden geëxporteerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`Id`, `Name`, `Email`, `Password`, `PhoneNumber`, `ZipCode`, `Address`, `Complex`, `UserType`, `Membership`, `Payment`, `user_id`, `identifier`) VALUES
-(1, 'Jonathan Ilunga', 'ilunga866@gmail.com', '$2y$10$G5BKEy90R55FImgSh8Th0.o6xOMFxvoKFcZOYnuO/.XCkkkQeZfge', '0623484527', '5637 JA', 'lindelaan 5', NULL, 3, NULL, NULL, NULL, ''),
-(2, 'Jeff Dober', 'jeffdober@gmail.com', '$2y$10$kwXvDPAF3OQ4isjUrweYIeFgt0LhqQtsQsbZlvTKRB9wfpkxyTKPy', '587-504-143', '6791BB', 'westwaystreet 72', 1, 2, NULL, NULL, NULL, ''),
-(3, 'Marc Dober', 'Marcdober@gmail.com', '$2y$10$CtMDZk4/7rny4.2FrZV1uOuGLSl6zPqYAYSJSVhd2PVOCCJVAU2GK', '508-544-141', '6791BB', 'westwaystreet 72', 1, 1, NULL, NULL, NULL, ''),
-(4, 'test123', 'test@gmail.com', '$2y$10$rrsNLlE8qqlXDa5xuAtVkeSdGbkdl5eHigJI1yaajulB15gh1FY16', '061115467', '5463 AM', '37', NULL, 1, 0, 0, NULL, ''),
-(5, 'test123', 'test123@gmail.com', '$2y$10$yVRxoUEXta9XsUgc.ltG7ef4xTJQiWHxGbgyiT.XfoJx3CphRC.42', '061115467', '5463 AM', '37', NULL, 1, 0, 0, NULL, ''),
-(6, 'John Doe', 'johndoe@gmail.com', '$2y$10$8FFH/xQrY9Z/TCu4JtXadOX1kcTvt3IkggQBaDtfwWnOC2Z1RRtgy', '580-104-343', '2141DB', 'Nethernowstreet 72', 1, 1, NULL, NULL, NULL, ''),
-(7, 'John Doe', 'johndoe@gmail.com', '$2y$10$JWbiPn5jc8C.igM74ySIPuHVa2gXOQ1CeMEhY5I70e.oD42BLIsYu', '580-104-343', '2141DB', 'Nethernowstreet 72', 1, 1, NULL, NULL, NULL, ''),
-(8, 'John Doe', 'johndoe@gmail.com', '$2y$10$RemmZ4B0Wz9gmx37WSY9Zu2Mcb5OE/RXpx23oy6q1ttXDISgcD88u', '580-104-343', '2141DB', 'Nethernowstreet 72', 1, 1, NULL, NULL, NULL, ''),
-(9, 'Thomas', 'johndoe@gmail.com', '$2y$10$KD55Uvz/KtxlbFqBHjKRauu8jF3hH2X1MPgtP0F19wd.CHCFU3Ka.', '580-104-343', '2141DB', 'Nethernowstreet 72', 1, 1, NULL, NULL, NULL, '');
+INSERT INTO `users` (`Id`, `Name`, `Email`, `Password`, `PhoneNumber`, `ZipCode`, `Address`, `Complex`, `UserType`, `TuinNummer`) VALUES
+(26, '3d23d23', 'd32d2d@gmail.com', '$2y$10$GZ7vqj3CcoNDUvRqoyHFve7GGV6/y8BdijhdS6J0rrA0LgLXTGaim', 'd23d2', 'd23d32', 'd23d23d', NULL, 1, '5'),
+(28, 'beheerder', 'beheerder@gmail.com', '$2y$10$SXj92Tg4wv5LS/Je8R.cx.4zamT8YtLxFegOAt1t0QkVWJ1n/DqOq', '06-12345678', '1234 AB', 'straatnaam 1', NULL, 2, '0'),
+(29, 'Bestuurder', 'bestuurder@gmail.com', '$2y$10$IasiOmqkar2PkOMwoIwq5.YozXEkP1gqesX84S2aCmxVx1EApxCzK', '06-12345678', '1234 AB', 'straatnaam 1', NULL, 3, '0'),
+(31, 'deelnemer', 'deelnemer@gmail.com', '$2y$10$yAOIvAYiA92GuXoERkf5PeaFjmyYd4Wm7gD8mtmlg3XoWvJ2b6Vny', '06-12345678', '1234 AB', 'straatnaam 1', NULL, 1, '0'),
+(32, 'admin', 'admin@admin.nl', '$2y$10$1oO0inVsA0EPihfW4e3ISuybLEGsr/aVZ6xOAkPmvviwBxYMCcqaK', 'X', 'X', 'X', NULL, 4, '0'),
+(33, '3d23d23', 'd32d2d@gmail.com', '$2y$10$GZ7vqj3CcoNDUvRqoyHFve7GGV6/y8BdijhdS6J0rrA0LgLXTGaim', 'd23d2', 'd23d32', 'd23d23d', NULL, 1, '21'),
+(35, 'Thomas', 'thomas@gmail.com', '$2y$10$tzu6sTa5DnwaWt2BrusHp.DzDtd6MTEU.Vvk4OUPnQsosksqOY23u', '06-12345678', '1234 AB', 'straatnaam 1', NULL, 1, '0');
+
+-- --------------------------------------------------------
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Table structure for table `waiting_list`
+--
+
+CREATE TABLE `waiting_list` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `parcel` varchar(100) NOT NULL,
+  `motive` text NOT NULL,
+  `requested_meters` int(11) NOT NULL,
+  `request_date` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `waiting_list`
+--
+
+INSERT INTO `waiting_list` (`id`, `name`, `parcel`, `motive`, `requested_meters`, `request_date`) VALUES
+(1, '', 'Ophoven', 'Eagle Buster +2', 11, '2025-06-23 11:11:38');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `complexes`
+-- Indexes for table `complexes`
 --
 ALTER TABLE `complexes`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Indexen voor tabel `messages`
+-- Indexes for table `messages`
 --
 ALTER TABLE `messages`
   ADD PRIMARY KEY (`Id`),
@@ -206,15 +291,15 @@ ALTER TABLE `messages`
   ADD KEY `Complex` (`Complex`);
 
 --
--- Indexen voor tabel `parcel`
+-- Indexes for table `parcel`
 --
 ALTER TABLE `parcel`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `User` (`User`),
-  ADD KEY `Complex` (`Complex`);
+  ADD KEY `parcel_ibfk_2` (`Complex`);
 
 --
--- Indexen voor tabel `parcel-request`
+-- Indexes for table `parcel-request`
 --
 ALTER TABLE `parcel-request`
   ADD PRIMARY KEY (`Id`),
@@ -223,13 +308,19 @@ ALTER TABLE `parcel-request`
   ADD KEY `Parcel` (`Parcel`);
 
 --
--- Indexen voor tabel `parcel_free`
+-- Indexes for table `parcel_free`
 --
 ALTER TABLE `parcel_free`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `requests`
+-- Indexes for table `pending_changes`
+--
+ALTER TABLE `pending_changes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `requests`
 --
 ALTER TABLE `requests`
   ADD PRIMARY KEY (`Id`),
@@ -237,78 +328,96 @@ ALTER TABLE `requests`
   ADD KEY `Complex2` (`Complex2`);
 
 --
--- Indexen voor tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `Complex` (`Complex`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- Indexes for table `waiting_list`
+--
+ALTER TABLE `waiting_list`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `complexes`
+-- AUTO_INCREMENT for table `complexes`
 --
 ALTER TABLE `complexes`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT voor een tabel `messages`
+-- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT voor een tabel `parcel`
+-- AUTO_INCREMENT for table `parcel`
 --
 ALTER TABLE `parcel`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT voor een tabel `parcel-request`
+-- AUTO_INCREMENT for table `parcel-request`
 --
 ALTER TABLE `parcel-request`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT voor een tabel `parcel_free`
+-- AUTO_INCREMENT for table `parcel_free`
 --
 ALTER TABLE `parcel_free`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
--- AUTO_INCREMENT voor een tabel `requests`
+-- AUTO_INCREMENT for table `pending_changes`
+--
+ALTER TABLE `pending_changes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `requests`
 --
 ALTER TABLE `requests`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT voor een tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
--- Beperkingen voor geëxporteerde tabellen
+-- AUTO_INCREMENT for table `waiting_list`
+--
+ALTER TABLE `waiting_list`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
 --
 
 --
--- Beperkingen voor tabel `messages`
+-- Constraints for table `messages`
 --
 ALTER TABLE `messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`User`) REFERENCES `users` (`Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`Complex`) REFERENCES `complexes` (`Id`) ON DELETE CASCADE;
 
 --
--- Beperkingen voor tabel `parcel`
+-- Constraints for table `parcel`
 --
 ALTER TABLE `parcel`
   ADD CONSTRAINT `parcel_ibfk_1` FOREIGN KEY (`User`) REFERENCES `users` (`Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `parcel_ibfk_2` FOREIGN KEY (`Complex`) REFERENCES `complexes` (`Id`) ON DELETE CASCADE;
 
 --
--- Beperkingen voor tabel `parcel-request`
+-- Constraints for table `parcel-request`
 --
 ALTER TABLE `parcel-request`
   ADD CONSTRAINT `parcel-request_ibfk_1` FOREIGN KEY (`Complex`) REFERENCES `complexes` (`Id`) ON DELETE CASCADE,
@@ -316,14 +425,14 @@ ALTER TABLE `parcel-request`
   ADD CONSTRAINT `parcel-request_ibfk_3` FOREIGN KEY (`Parcel`) REFERENCES `parcel` (`Id`) ON DELETE CASCADE;
 
 --
--- Beperkingen voor tabel `requests`
+-- Constraints for table `requests`
 --
 ALTER TABLE `requests`
   ADD CONSTRAINT `requests_ibfk_1` FOREIGN KEY (`Complex1`) REFERENCES `complexes` (`Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `requests_ibfk_2` FOREIGN KEY (`Complex2`) REFERENCES `complexes` (`Id`) ON DELETE CASCADE;
 
 --
--- Beperkingen voor tabel `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`Complex`) REFERENCES `complexes` (`Id`) ON DELETE CASCADE;

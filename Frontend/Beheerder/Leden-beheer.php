@@ -1,9 +1,7 @@
 <?php
 require_once __DIR__ . "/../../Backend/SessionChecker.php";
 require_once __DIR__ . "/../../Backend/DatabaseContext/Database.php";
-   
 checkSession($allowedUserTypes = [2]);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,10 +10,9 @@ checkSession($allowedUserTypes = [2]);
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Volkstuin Vereniging Sittard</title>
   <link rel="stylesheet" href="CSS-Beheerder/Leden-beheer.css">
-    <!-- javascript link -->
-    <script src="leden-beheer.js" defer></script>
 </head>
 <body>
+    
   <!-- Sidebar -->
   <div class="sidebar">
       <img src="../../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="Logo">
@@ -61,13 +58,12 @@ checkSession($allowedUserTypes = [2]);
             </thead>
             <tbody>
                 
-            <?php
+                <?php
             $conn = Database::GetConnection();
 
                 // Fetch members
                 $query = "SELECT Name, Complex, Email, GROUP_CONCAT(TuinNummer ORDER BY TuinNummer SEPARATOR ', ') AS TuinNummers 
                 FROM users 
-                WHERE Complex='1'
                 GROUP BY Name, Email, Complex";
                 $stmt = $conn->query($query);
 
@@ -80,7 +76,7 @@ checkSession($allowedUserTypes = [2]);
                     <td>" . htmlspecialchars($row["Complex"]) . "</td>
                     <td>?</td> <!-- Placeholder for m² -->
                     <td>" . htmlspecialchars($row["Email"]) . "</td>
-                    <td>?</td> <!-- Placeholder for TuinNummers -->
+                    <td>?</td>
                 </tr>";
             }
             } else {
@@ -90,11 +86,11 @@ checkSession($allowedUserTypes = [2]);
                 ?>
 
             </tbody>
-
         </thead>
       </table>
     </div>
   </div>
-
+  <!-- javascript link -->
+  <script src="Leden-beheer.js"></script>
 </body>
 </html>
