@@ -13,6 +13,13 @@ $user_id = $_SESSION['user_id'];
 $userType = $_SESSION['user_type']; // 1 = deelnemer, hoger = beheerder/admin/etc.
 $message = "";
 
+if ($userType != 1) {
+    // Niet toegestaan: doorsturen naar dashboard of andere pagina
+    header("Location: dashboard.php");
+    exit();
+}
+
+
 // Ophalen huidige gegevens uit users-tabel
 $stmt = $conn->prepare("SELECT * FROM users WHERE Id = ?");
 $stmt->execute([$user_id]);
@@ -110,7 +117,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bewerken'])) {
         <input type="text" name="telefoon" id="telefoon" value="<?= htmlspecialchars($user['PhoneNumber']) ?>" class="form-control" required />
     </div>
     <button type="submit" name="bewerken" class="btn btn-success">Opslaan</button>
-<a href="dashboard.php" class="btn btn-secondary">Home</a>
 </form>
 <a href="dashboard.php" class="btn-back">← Terug naar Dashboard</a>
 
