@@ -55,26 +55,23 @@ if (isset($error)) {
 <body>
 
 
-    <div class="sidebar">
-
+<div class="sidebar">
         <img src="../Frontend/Gedeeld/pictures/logo-volkstuinverenigingsittard.png" alt="logo">
+</div>
 
-    
-    </div>
-
-    <div class="header">
+<div class="header">
         VOLKSTUIN VERENING SITTARD
-    </div>
+</div>
 
 
-  <div class="main-container">
-
+<div class="main-container">
   <?php if (!empty($success_message)): ?>
     <div class="success-message"><?= htmlspecialchars($success_message) ?></div>
-<?php endif; ?>
+  <?php endif; ?>
+</div>
 
-  </div>
-  <div class="login-container">
+
+<div class="login-container">
     <div class="login-box">
       <div class="login-avatar">
         <img src="Gedeeld/pictures/UserIcon.svg" alt="pfp">
@@ -88,7 +85,7 @@ if (isset($error)) {
         <label for="password">WACHTWOORD</label>
         <input type="password" id="password" name="password" required>
 
-        <a href="email-sender.php">Wachtwoord vergeten?</a>
+
         <a href="register.php">Nieuwe account aanmaken</a>
         <button type="submit">Login</button>
           <?php if (isset($error)) : ?>
@@ -99,6 +96,8 @@ if (isset($error)) {
     <div class="logimgbg">
       <img class="login-image" src="../Frontend/Gedeeld/pictures/Baandert1-800px.jpg" alt="tuinfoto">
     </div>
-  </div>
+</div>
+
+
 </body>
 </html>
