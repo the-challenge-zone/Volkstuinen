@@ -112,6 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['bewerken'])) {
     <button type="submit" name="bewerken" class="btn btn-success">Opslaan</button>
 <a href="dashboard.php" class="btn btn-secondary">Home</a>
 </form>
+<a href="dashboard.php" class="btn-back">← Terug naar Dashboard</a>
 
 
 <script>

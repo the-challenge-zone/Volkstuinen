@@ -186,7 +186,22 @@ a:active {
     top: 50%;
 }
 
-
+.btn-back {
+    margin-top: 30px;
+    background-color: #7cb342;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    color: white;
+}
+.btn-back:hover {
+    background-color: #689f38;
+}
 
 
 
